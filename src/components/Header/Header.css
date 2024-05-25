@@ -1,0 +1,58 @@
+.Header{
+    background-image: url('../../../../public/view-ready-eat-delicious-meal-go_23-2151431806.jpg');
+    width: 95vw;
+    height: 81vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.Header-content{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    gap: 2rem;
+    bottom: 10%;
+    align-items: start;
+    left: 55rem;
+    animation: HeaderContent 5s;
+}
+
+.Header-content h1{
+    font-size: 5rem;
+    font-weight: 500;
+    color: white;
+}
+.Header-content h3{
+    color: white;
+    font-size: 30px;
+}
+
+.Header-content span{
+    margin-left: 300px;
+    color: rgb(246, 246, 246);
+}
+
+.Header-content p{
+    color: white;
+    font-size: 20px;
+    line-height: 35px;
+    margin-top: 30px;
+    word-spacing: 3px;
+}
+
+.Header-content button{
+    border: none;
+    color: black;
+    font-weight: 500;
+    padding: 20px;
+    background-color: white;
+    font-size: max(1vw, 13px);
+    border-radius: 50px;
+    margin-top: 30px;
+    margin-left: 760px;
+    margin-top: 70px;
+    cursor: pointer;
+}

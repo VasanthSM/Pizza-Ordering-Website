@@ -1,0 +1,72 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.Navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.Logo{
+    width: 220px;
+    height: 130px;
+}
+
+.Navbar-Menu{
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    position: sticky;
+    cursor: pointer;
+    font-size: 20px;
+    color: #435bab;
+}
+
+.Navbar-right{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+}
+.Navbar-cart{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.Navbar-signin{
+    display: flex;
+    gap: 30px;
+}
+
+.Navbar button{
+    background: transparent;
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px 30px;
+    width: max-content;
+    color: black;
+    gap: 30px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.Navbar button:hover{
+    background-color: black;
+    color: white;
+}
+
+.Navbar-Menu li:hover {
+    padding-bottom: 2px;
+    border-bottom: 2px solid #000; 
+}
+
+.Navbar-Menu li {
+    border: 2px solid transparent; 
+    transition: border-color 0.4s; 
+}
