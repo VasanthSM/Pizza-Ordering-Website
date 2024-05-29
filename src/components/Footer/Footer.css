@@ -1,0 +1,89 @@
+.footer{
+    color: #d9d9d9;
+    background-color: #323232;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 8vw;
+    border-end-end-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: 15px;
+}
+
+.footer-content{
+    width: 100%;
+    display: grid;
+    gap: 80px;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+.logo{
+    position: absolute;
+    left: 130px;
+    height: 150px;
+    width: 300px;
+}
+.paragarph{
+    font-size: 17px;
+    text-align: justify;
+}
+.footer-content-left, .footer-content-center, .footer-content-right{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+}
+.footer-content-left li, .footer-content-center li, .footer-content-right li{
+    list-style: none;
+    margin-bottom: 10px;
+    line-height: 40px;
+    font-size: 21px;
+    cursor: pointer;
+}
+.footer-content-center h2, .footer-content-right h2{
+    color: white;
+    font-size: 28px;
+    color: chocolate;
+    margin-top: 40px;
+}
+.footer-content-left h2{
+    color: white;
+    font-size: 28px;
+    color: chocolate;
+    margin-top: 150px;
+}
+ .icons1, .icons2, .icons3{
+    height: 35px;
+    width: 60px;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+.icons1:hover{
+    color: black;
+}
+.icons2:hover{
+    color: rgb(0, 140, 255);
+}
+.icons3:hover{
+    color:green;
+}
+
+
+.footer hr{
+    width: 102%;
+    height: 2px;
+    color: white;
+    margin: 10px 0px;
+
+}
+
+@media (max-width:750px){
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+    .footer-copyrights{
+        text-align: center;
+    }
+}

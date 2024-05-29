@@ -1,0 +1,95 @@
+.signin-head{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../../assets/ai-generated-8704064_1280.jpg');
+}
+
+.Signup{
+    position: absolute;
+    top: 180px;
+    border-radius: 10px;
+    z-index: 1;
+    left: 650px;
+    width: 30vw;
+    height: 60vh;
+    background-color: #00000090;
+    display: grid;
+}
+.signup-container{
+    background: transparent;
+    place-self: center;
+    width: max(23vw,330px);
+    color: #808080;
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: HeaderContent 1s;
+}
+.signup-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    text-align: center;
+}
+
+.checkbox-content{
+    display: flex;
+    align-items:start;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.checkbox-content input{
+    height: 20px;
+    width: 15px;
+}
+.account p{
+    font-size: 18px;
+    color: white;
+}
+.Policy p{
+    color: white;
+    font-size: 16px;
+}
+
+.signup-container button{
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    color: black;
+    background-color: beige;
+    cursor: pointer;
+    font-size: 18px;
+}
+/* .Clicking{
+    margin-left: 10px;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    color: black;
+    background-color: beige;
+    cursor: pointer;
+    font-size: 18px;
+} */
+.signup-input{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.signup-input input{
+    outline: none;
+    border: 1px solid #c9c9c9;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 18px;
+}

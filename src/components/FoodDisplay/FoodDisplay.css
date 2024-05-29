@@ -1,0 +1,21 @@
+.FoodDisplay{
+    margin-top: 30px;
+    background-color: rgba(215, 213, 210, 0.166);
+}
+
+.FoodDisplay h2{
+    font-size: 33px;
+}
+.fooddisplay-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    margin-top: 30px;
+    gap: 30px;
+    row-gap: 50px;
+}
+.fooddisplay-category{
+    margin: 25px 0px;
+    font-size: 30px;
+    font-weight: 400;
+    color: chocolate;
+}

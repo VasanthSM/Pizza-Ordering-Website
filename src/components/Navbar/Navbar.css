@@ -1,23 +1,29 @@
-*{
+
+* {
     margin: 0%;
     padding: 0%;
     box-sizing: border-box;
 }
 
-.Navbar{
+.Navbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
     margin-bottom: 30px;
+    position: sticky;
+    background-color: white;
+    top: 0;
+    width: 100%;
 }
-.Logo{
+
+.Logo {
     width: 220px;
     height: 130px;
 }
 
-.Navbar-Menu{
+.Navbar-Menu {
     list-style: none;
     display: flex;
     gap: 50px;
@@ -27,25 +33,28 @@
     color: #435bab;
 }
 
-.Navbar-right{
+.Navbar-right {
     display: flex;
     gap: 15px;
     align-items: center;
     font-size: 30px;
     cursor: pointer;
 }
-.Navbar-cart{
+
+.Navbar-cart {
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
 }
-.Navbar-signin{
+
+.Navbar-signin {
     display: flex;
     gap: 30px;
 }
 
-.Navbar button{
-    background: transparent;
+.Navbar-signin-link {
+    background-color:white;
+    background: white;
     font-size: 20px;
     border: 2px solid black;
     border-radius: 20px;
@@ -56,7 +65,8 @@
     cursor: pointer;
     transition: 0.4s;
 }
-.Navbar button:hover{
+
+.Navbar button:hover {
     background-color: black;
     color: white;
 }
@@ -68,4 +78,71 @@
 .Navbar-Menu li {
     border: 2px solid transparent; 
     transition: border-color 0.4s; 
+}
+
+.Navbar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.Navbar-search input {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    display: none;
+}
+
+.Navbar-search input.Navbar-search-input {
+    display: inline-block;
+}
+
+
+
+@media (max-width:1050px) {
+    .Navbar .Logo{
+        width: 140px;
+    }    
+    .Navbar-Menu{
+        gap: 20px;
+        font-size: 17px;
+    }
+    .Navbar-right{
+        gap: 30px;
+    }
+    .Navbar-right img{
+        width: 22px;
+    }
+    .Navbar-right button{
+        padding: 8px 25px;
+    }
+}
+
+@media (max-width:900px) {
+    .Navbar .Logo{
+        width: 140px;
+    }    
+    .Navbar-Menu{
+        gap: 15px;
+        font-size: 16px;
+    }
+    .Navbar-right{
+        gap: 20px;
+    }
+    .Navbar-right img{
+        width: 20px;
+    }
+    .Navbar-right button{
+        padding: 7px 2px;
+        font-size: 17px;
+    }
+}
+
+@media (max-width:768px) {
+    .Navbar-Menu{
+        display: none;
+    }
+    
 }

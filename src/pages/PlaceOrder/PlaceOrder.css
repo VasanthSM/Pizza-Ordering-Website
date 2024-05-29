@@ -1,0 +1,47 @@
+.place-order{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 50px;
+    margin-top: 100px;
+}
+
+.place-orderleft{
+    width: 50%;
+    max-width: max(305, 500px);
+}
+.place-orderleft .title{
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+.place-orderleft input{
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #c5c5c5;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.place-orderleft .customer-information{
+    display: flex;
+    gap: 10px;
+}
+
+.place-orderright{
+    width: 50%;
+    margin-right: 100px;
+    max-width: max(10%, 300px);
+}
+
+.place-orderright button{
+    border: none;
+    color: black;
+    width: max(11vw, 200px);
+    background-color: beige;
+    cursor: pointer;
+    padding: 12px 0px;
+    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 5px;
+}
