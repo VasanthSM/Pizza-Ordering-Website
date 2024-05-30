@@ -11,7 +11,7 @@ const Menu = ({ searchQuery }) => {
   };
 
   const isMenuPage = window.location.pathname === '/menu';
-  const shouldDisplayFoodDisplay = isMenuPage && category !== 'All';
+  const DisplayFoodDisplay = isMenuPage && category !== 'All';
 
   return (
     <div className="Menu" id="menulist">
@@ -34,7 +34,7 @@ const Menu = ({ searchQuery }) => {
           </div>
         ))}
       </div>
-      {shouldDisplayFoodDisplay && <FoodDisplay category={category} searchQuery={searchQuery} />}
+      {DisplayFoodDisplay && <FoodDisplay category={category} searchQuery={searchQuery} />}
       <hr />
     </div>
   );

@@ -468,3 +468,41 @@ export const food_list = [
         category: "Beverages"
     }
 ]
+
+// pizzaOptions.js
+export const pizzaBases = [
+    { name: 'Thin Crust', price: 20 },
+    { name: 'Thick Crust', price: 25 },
+    { name: 'Stuffed Crust', price: 30 },
+    { name: 'Gluten-Free', price: 35 },
+    { name: 'Whole Wheat', price: 30 },
+];
+
+export const sizes = [
+    { name: 'Small', price: 349 },
+    { name: 'Medium', price: 449 },
+    { name: 'Large', price: 549 },
+];
+
+export const toppings = {
+    vegetables: [
+        { name: 'Bell Peppers', price: 5 },
+        { name: 'Onions', price: 5 },
+        { name: 'Mushrooms', price: 15 },
+    ],
+    meats: [
+        { name: 'Pepperoni', price: 15 },
+        { name: 'Sausage', price: 25 },
+        { name: 'Chicken', price: 40 },
+    ],
+    cheeses: [
+        { name: 'Mozzarella', price: 30 },
+        { name: 'Cheddar', price: 20 },
+        { name: 'Feta', price: 15 },
+    ],
+    others: [
+        { name: 'Olives', price: 35 },
+        { name: 'Jalapenos', price: 45 },
+        { name: 'Pineapple', price: 30 },
+    ],
+};

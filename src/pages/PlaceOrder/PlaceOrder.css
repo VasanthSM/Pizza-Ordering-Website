@@ -33,15 +33,32 @@
     margin-right: 100px;
     max-width: max(10%, 300px);
 }
-
+.place-order-btns{
+    display: flex;
+}
 .place-orderright button{
     border: none;
     color: black;
-    width: max(11vw, 200px);
+    width: max(12vw, 250px);
     background-color: beige;
     cursor: pointer;
     padding: 12px 0px;
-    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+
+.backToHome{
+    border: none;
+    color: black;
+    width: max(2vw, 100px);
+    background-color: beige;
+    cursor: pointer;
+    padding: 10px 0px;
+    margin-left: 10px;
+    text-align: center;
     font-size: 18px;
     border-radius: 5px;
 }
+    

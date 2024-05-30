@@ -1,34 +1,50 @@
 import React, { useContext, useState } from 'react';
-import "./FoodItem.css";
-import { assets } from "../../assets/assets";
+import './FoodItem.css';
+import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
+import Customize from '../Customize/Customize';
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const { cartItems, addToCart, removeCart } = useContext(StoreContext);
-  const [selectedSize, setSelectedSize] = useState('medium'); 
+  const [selectedSize, setSelectedSize] = useState('medium');
+  const [showCustomize, setShowCustomize] = useState(false);
+  const [customization, setCustomization] = useState(null);
 
-  const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value);
+  const toggleCustomize = () => {
+    setShowCustomize(!showCustomize);
   };
 
-  const handleCustomize = () => {
-    console.log("Customize button clicked!");
+  const handleCustomizationChange = (customizationDetails) => {
+    setCustomization(customizationDetails);
+  };
+  
+
+  const handleAddToCart = () => {
+    if (!customization) {
+      addToCart(id, price, { base: 'Default Base', size: selectedSize, toppings: 'No toppings' });
+    } else {
+      addToCart(id, customization.price, {
+        base: customization.base.name,
+        size: customization.size.name,
+        toppings: customization.toppings.map(topping => topping.name).join(', ')
+      });
+      setShowCustomize(false); 
+    }
   };
 
-  return ( 
-    <div className='food-item'>
+  return (
+    <div className="food-item">
       <div className="fooditem-image-container">
-        <img className='fooditem-image' src={image} alt={name} />
-        {!cartItems[id]
-          ? <img className='additem' onClick={() => addToCart(id)} src={assets.add_icon_white} alt='Add' />
-          : (
-            <div className='food-item-counter'>
-              <img className='icon-green' onClick={() => addToCart(id)} src={assets.add_icon_green} alt='Add' />
-              <p className='item-count'>{cartItems[id]}</p>
-              <img className='icon-red' onClick={() => removeCart(id)} src={assets.remove_icon_red} alt='Remove' />
-            </div>
-          )
-        }
+        <img className="fooditem-image" src={image} alt={name} />
+        {!cartItems[id] ? (
+          <img className="additem" onClick={handleAddToCart} src={assets.add_icon_white} alt="Add" />
+        ) : (
+          <div className="food-item-counter">
+            <img className="icon-green" onClick={handleAddToCart} src={assets.add_icon_green} alt="Add" />
+            <p className="item-count">{cartItems[id].quantity}</p>
+            <img className="icon-red" onClick={() => removeCart(id)} src={assets.remove_icon_red} alt="Remove" />
+          </div>
+        )}
       </div>
       <div className="fooditem-info">
         <div className="fooditem-rating">
@@ -38,13 +54,8 @@ const FoodItem = ({ id, name, price, description, image }) => {
         <p className="fooditem-desc">{description}</p>
         <p className="fooditem-price">₹ {price}</p>
         <div className="fooditem-options">
-          <label className='select' htmlFor="size-select">Select size: </label>
-          <select id="size-select" value={selectedSize} onChange={handleSizeChange}>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-          <button className="customize-btn" onClick={handleCustomize}>Customizable</button>
+          <button className="customize-btn" onClick={toggleCustomize}>Customize</button>
+          {showCustomize && <Customize onAddToCart={handleCustomizationChange} />}
         </div>
       </div>
     </div>

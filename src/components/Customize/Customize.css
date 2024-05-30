@@ -1,0 +1,79 @@
+.pizza-customize{
+    display: flex;
+    flex-direction: column;
+}
+
+.pizza-customize h2{
+    font-size: 18px;
+    font-weight: 400;
+    margin: 10px 0px;
+}
+
+.customize-section{
+    display: flex;
+    width: max(5vw, 400px);
+}
+
+.customize-section h3{
+    margin-top: 10px;
+    display: flex;
+    font-size: 17px;
+    font-weight: 500;
+    width: 90px;
+}
+
+.options{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.options button{
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px;
+    background: transparent;
+    font-size: 15px;
+}
+
+.options2 h4{
+    display: flex;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 5px 0px;
+    color: rgb(235, 167, 65);
+}
+.options2{
+    margin-left: 15px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    margin-top: 10px;
+} 
+
+.options2 button{
+    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid black;
+    background: transparent;
+    font-size: 15px;
+    margin: 5px;
+}
+.total-price{
+    display: flex;
+    justify-content: space-around;
+}
+.total-price h3{
+    margin-top: 20px;
+    font-weight: 480;
+}
+
+.total-price button{
+    margin-top: 20px;
+    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid black;
+    background: transparent;
+    font-size: 15px; 
+    cursor: pointer;
+}

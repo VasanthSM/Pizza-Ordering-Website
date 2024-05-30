@@ -49,11 +49,19 @@
 cursor: pointer;
 padding: 10px;
 }
+.additem{
+    margin-left: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}
 
 .item-count {
 margin: 0 10px;
 }
-
+/* .fooditem-options{
+    position: absolute;
+    margin-left: 0px;
+} */
 .customize-btn{
     background: transparent;
     font-size: 18px;
@@ -65,7 +73,6 @@ margin: 0 10px;
     gap: 30px;
     cursor: pointer;
     transition: 0.4s;
-    margin-left: 50px;
 }
 
 #size-select{

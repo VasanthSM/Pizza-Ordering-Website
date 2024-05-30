@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import "./PlaceOrder.css";
 import { StoreContext } from '../../context/StoreContext';
+import { Link } from 'react-router-dom';
 
 
 const PlaceOrder = () => {
@@ -47,7 +48,10 @@ const PlaceOrder = () => {
             </div>
             <hr />
           </div>
-          <button>Proceed to Payment</button>
+          <div className='place-order-btns'>
+            <button>Proceed to Payment</button>
+            <Link className='backToHome' to='/'>Back</Link>
+          </div>
         </div>
       </div>
     </form>

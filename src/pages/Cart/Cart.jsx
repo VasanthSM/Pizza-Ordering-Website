@@ -9,16 +9,12 @@ const Cart = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Check if the current path is '/order'
-  const isOrderPath = location.pathname === '/order';
 
-  // If on the order path, don't render the cart
-  if (isOrderPath) {
-    return null;
-  }
-
+  const displayCart = !['/order'].includes(location.pathname)
   return (
-    <div className='cart'>
+    <>
+    {displayCart  && (
+      <div className='cart'>
       <div className="cart-items">
         <div className="cart-items-title">
           <p>Items</p>
@@ -31,21 +27,32 @@ const Cart = () => {
         <br />
         <hr />
         {food_list.map((item, index) => {
-          if (cartItems[item._id] > 0) {
+          const cartItem = cartItems[item._id];
+          if (cartItem && cartItem.quantity > 0) {
             return (
               <div key={index}>
                 <div className='cart-items-item'>
                   <img src={item.image} alt="" />
-                  <p>{item.name}</p>
-                  <p>₹{item.price}</p>
-                  <p>{cartItems[item._id]}</p>
-                  <p>₹{item.price * cartItems[item._id]}</p>
+                  <div>
+                    <p>{item.name}</p>
+                    {cartItem.customization && (
+                      <div>
+                        <p>Base: {cartItem.customization.base}</p>
+                        <p>Size: {cartItem.customization.size}</p>
+                        <p>Toppings: {cartItem.customization.toppings}</p>
+                      </div>
+                    )}
+                  </div>
+                  <p>₹{cartItem.price}</p>
+                  <p>{cartItem.quantity}</p>
+                  <p>₹{cartItem.price * cartItem.quantity}</p>
                   <p onClick={() => removeCart(item._id)}><MdCancel className='cancel' /></p>
                 </div>
                 <hr />
               </div>
             );
           }
+          return null;
         })}
       </div>
       <div className="cart-bottom">
@@ -72,6 +79,9 @@ const Cart = () => {
         </div>
       </div>
     </div>
+    
+    )}
+    </>
   );
 };
 

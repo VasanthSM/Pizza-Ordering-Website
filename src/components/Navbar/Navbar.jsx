@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import pizzaLogo from '../../assets/logo-removebg-preview.png';
 import './Navbar.css';
 import { IoSearch, IoCart } from 'react-icons/io5';
@@ -11,6 +11,7 @@ const Navbar = ({ onSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const location = useLocation();
     const [isCartVisible, setCartVisible] = useState(false);
+    const cartRef = useRef(null);
 
     const toggleCartVisibility = () => {
         setCartVisible(!isCartVisible);
@@ -25,9 +26,24 @@ const Navbar = ({ onSearch }) => {
         onSearch(e.target.value);
     };
 
-    // Determine whether to display the navbar based on the current route
+   
     const displayNavbar = !['/signup', '/login'].includes(location.pathname);
 
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.cart')) {
+            setCartVisible(false);
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, [isCartVisible]);
+    
+    
     return (
         <>
             {displayNavbar && (
@@ -54,7 +70,7 @@ const Navbar = ({ onSearch }) => {
                                 />
                             )}
                         </div>
-                        <div className='Navbar-cart'>
+                        <div className='Navbar-cart' ref={cartRef}>
                             <IoCart onClick={toggleCartVisibility} />
                         </div>
                         <div className='Navbar-signin'>
@@ -62,7 +78,7 @@ const Navbar = ({ onSearch }) => {
                             <Link to='/login' className='Navbar-signin-link'>Log in</Link>
                         </div>
                     </div>
-                    {isCartVisible && <Cart />} {/* Conditionally render the Cart component */}
+                    {isCartVisible && <Cart />} 
                 </div>
             )}
         </>
