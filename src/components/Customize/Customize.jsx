@@ -50,6 +50,7 @@ const Customize = ({ onAddToCart }) => {
     onAddToCart(customizationDetails);
   };
 
+
   return (
     <div className="pizza-customize">
       <h2>Customize Your Pizza</h2>

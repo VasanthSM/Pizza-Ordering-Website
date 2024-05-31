@@ -66,12 +66,12 @@
     transition: 0.4s;
 }
 
-.Navbar button:hover {
+.Navbar-signin-link:hover {
     background-color: black;
     color: white;
 }
 
-.Navbar-Menu li:hover {
+.link-hover:hover {
     border-bottom: 2px solid #000; 
 }
 
@@ -144,5 +144,11 @@
     .Navbar-Menu{
         display: none;
     }
-    
+}
+
+@media (max-width:358px) {
+    .Navbar-signin-link{
+        display: flex;
+        flex-direction: column;
+    }
 }

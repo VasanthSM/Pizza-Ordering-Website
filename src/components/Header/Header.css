@@ -81,7 +81,14 @@
     .Header-content button{
         padding: 2vw 4vw;
     }
+    .Header .Menu{
+        position: absolute;
+        right: 750px;
+        top: 600px;
+
+    }
 }
+    
 
 
 @media (max-width:325px) {

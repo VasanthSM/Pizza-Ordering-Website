@@ -6,7 +6,7 @@ import Home from "./pages/Home/Home";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Menu from './components/Menu/Menu';
 import Footer from './components/Footer/Footer';
-import './App.css';
+
 import LogIn from './pages/LogIn/LogIn';
 import SignUp from './pages/SignUp/SignUp';
 
@@ -20,14 +20,12 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/order' element={<PlaceOrder />} />
-        <Route path="/menu" element={<Menu searchQuery={searchQuery} />} />
+        <Route path="/menu" element={<Menu  />} />
         <Route path="/about" element={<Footer />} />
-        <Route path="/specials" element={<Menu searchQuery={searchQuery} />} />
-        {/* <Route path="/account" element={<Account />} /> */}
+        <Route path="/specials" element={<Menu />} />
         <Route path="/contact" element={<Footer />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        
       </Routes>
     </div>
     </>

@@ -21,9 +21,7 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your signup logic here, such as sending data to the server
         console.log(formData);
-        // Reset the form data after submission
         setFormData({
             firstName: '',
             lastName: '',

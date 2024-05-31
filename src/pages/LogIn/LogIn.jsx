@@ -26,7 +26,7 @@ const LogIn = () => {
           <p>Create a new Account? <Link className='Clicking' to='/signup'>Click here</Link></p>
         </div>
       </form>
-    </div>
+      </div>
     </main>
   )
 }

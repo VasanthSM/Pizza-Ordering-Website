@@ -1,10 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,useState } from "react";
 import { food_list } from "../../src/assets/assets";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const [cartVisible, setCartVisible] = useState(true);
   const [cartItems, setCartItems] = useState({});
 
   const addToCart = (itemId, price, customization = null) => {
@@ -24,8 +23,9 @@ const StoreContextProvider = (props) => {
   const removeCart = (itemId) => {
     setCartItems((prev) => {
       if (prev[itemId].quantity <= 1) {
-        const { [itemId]: _, ...rest } = prev;
-        return rest;
+        const updatedCart = { ...prev };
+        delete updatedCart[itemId];
+        return updatedCart;
       } else {
         return {
           ...prev,
@@ -37,6 +37,7 @@ const StoreContextProvider = (props) => {
       }
     });
   };
+  
 
   const getTotalAmount = () => {
     let totalAmount = 0;
@@ -55,8 +56,6 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeCart,
     getTotalAmount,
-    cartVisible,
-    setCartVisible
   };
 
   return (

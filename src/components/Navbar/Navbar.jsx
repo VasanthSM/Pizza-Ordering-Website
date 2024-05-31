@@ -50,12 +50,12 @@ const Navbar = ({ onSearch }) => {
                 <div className='Navbar'>
                     <Link to='/'><img src={pizzaLogo} alt='Logo' className='Logo' /></Link>
                     <ul className='Navbar-Menu'>
-                        <Link to='/' onClick={() => setMenu('Home')} className={menu === 'Home' ? 'hover' : ''}>Home</Link>
-                        <Link to='/menu' onClick={() => setMenu('Menu')} className={menu === 'Menu' ? 'active' : ''}>Menu</Link>
-                        <Link to='/about' onClick={() => setMenu('About Us')} className={menu === 'About Us' ? 'active' : ''}>About Us</Link>
-                        <Link to='/specials' onClick={() => setMenu('Specials')} className={menu === 'Specials' ? 'active' : ''}>Today's Special</Link>
-                        <Link to='/account' onClick={() => setMenu('Account')} className={menu === 'Account' ? 'active' : ''}>Account</Link>
-                        <Link to='/contact' onClick={() => setMenu('Contact Us')} className={menu === 'Contact Us' ? 'active' : ''}>Contact Us</Link>
+                        <Link to='/' onClick={() => setMenu('Home')} className={`${menu === 'Home' ? 'active' : ''}link-hover`}>Home</Link>
+                        <Link to='/menu' onClick={() => setMenu('Menu')} className={`${menu === 'Menu' ? 'active' : ''}link-hover`}>Menu</Link>
+                        <Link to='/about' onClick={() => setMenu('About Us')} className={`${menu === 'About Us' ? 'active' : ''}link-hover`}>About Us</Link>
+                        <Link to='/specials' onClick={() => setMenu('TodaySpecial')} className={`${menu === 'TodaySpecial' ? 'active' : ''}link-hover`}>Today's Special</Link>
+                        <Link to='/account' onClick={() => setMenu('Account')} className={`${menu === 'Account' ? 'active' : ''}link-hover`}>Account</Link>
+                        <Link to='/contact' onClick={() => setMenu('Contact Us')} className={`${menu === 'Contact Us' ? 'active' : ''}link-hover`}>Contact Us</Link>
                     </ul>
                     <div className='Navbar-right'> 
                         <div className='Navbar-search'>

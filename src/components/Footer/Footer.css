@@ -77,7 +77,7 @@
 
 }
 
-@media (max-width:750px){
+@media (max-width:768px){
     .footer-content{
         display: flex;
         flex-direction: column;
@@ -86,4 +86,14 @@
     .footer-copyrights{
         text-align: center;
     }
+    .logo{
+        position: absolute;
+        left: 0px;
+    }
+}
+
+@media (min-width:320px) {
+    .footer{
+        width: 100%;
+    }    
 }

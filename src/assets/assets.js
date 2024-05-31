@@ -80,63 +80,43 @@ export const food_list = [
         _id: "1",
         name: "Framhouse",
         image: food_1,
-        price: 459,
+        price: 259,
         description: "Delightful combination of onion, capsicum, tomato & grilled mushroom",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     },
     {
         _id: "2",
         name: "Margherita",
         image: food_2,
-        price: 239,
+        price: 139,
         description: "Classic delight with 100% real mozzarella cheese",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "3",
         name: "Primavera Gourmet-Pizza",
         image: food_3,
-        price: 549,
+        price: 349,
         description: "Gourmet veggie delight with bocconcini, zucchini, bell peppers, and mushrooms.",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "4",
         name: "Peppy Paneer",
         image: food_4,
-        price: 459,
+        price: 259,
         description: "Flavorful trio of juicy paneer, crisp capsicum with spicy red paprika",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "5",
         name: "Al Fungi Gourmet-Pizza",
         image: food_5,
-        price: 549,
+        price: 349,
         description: "Gourmet mushroom pizza on a cheesy Mozzarella base with jalapenos & cherry tomatoes.",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "6",
         name: "Corn&Cheese Paratha Pizza",
@@ -144,310 +124,212 @@ export const food_list = [
         price: 179,
         description: "A crazy fusion like never before. A delicious fusion of corn stuffed paratha and cheesy pizza.",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "7",
         name: "Blazing Onion & Paprika",
         image: food_7,
-        price: 329,
+        price: 229,
         description: "Hot & spicy pizza with onion & red paprika toppings and a new spicy peri peri sauce on a Domino's cheesy base.",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "8",
         name: "Veg Extravaganza",
         image: food_8,
-        price: 549,
+        price: 349,
         description: "Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "9",
         name: "Indi Tandoori Paneer",
         image: food_9,
-        price: 549,
+        price: 349,
         description: "It is hot. It is spicy. It is oh-so-Indian. Tandoori paneer with capsicum, red paprika & mint mayo",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+       
     }, {
         _id: "10",
         name: "Veggie Paradise",
         image: food_10,
-        price: 459,
+        price: 359,
         description: "The awesome foursome! Golden corn, black olives, capsicum, red paprika",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "11",
         name: "Cheese n Corn",
         image: food_11,
-        price: 269,
+        price: 169,
         description: "A delectable combination of sweet & juicy golden corn",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "12",
         name: "Fresh Veggie",
         image: food_12,
-        price: 379,
+        price: 279,
         description: "Delectable combination of onion & capsicum, a veggie lovers pick",
         category: "Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     },
     {
         _id: "13",
         name: "Primavera Gourmet-Pizza",
         image: food_13,
-        price: 549,
+        price: 349,
         description: "Gourmet veggie delight with bocconcini, zucchini, bell peppers, and mushrooms.",
         category: "Gourmet Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     },
     {
         _id: "14",
         name: "Al Fungi Gourmet-Pizza",
         image: food_14,
-        price: 549,
+        price: 349,
         description: "Gourmet mushroom pizza on a cheesy Mozzarella base with jalapenos & cherry tomatoes.",
         category: "Gourmet Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "15",
         name: "Chicken Pepperoni Gourmet-Pizza",
         image: food_15,
-        price: 629,
+        price: 329,
         description: "The classic Italian gourmet pizza with bocconcini cheese and chicken pepperoni.",
         category: "Gourmet Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "16",
         name: "Smoked Chicken Gourmet-Pizza",
         image: food_16,
-        price: 629,
+        price: 329,
         description: "Gourmet non-veg delight with bocconcini, juicy chicken, olives, bellpeppers & basil pesto.",
         category: "Gourmet Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "17",
         name: "Quattro Formaggi Pizza",
         image: food_17,
-        price: 549,
+        price: 349,
         description: "Gourmet cheesy delight with bocconcini, mozzarella, cheddar and ghost pepper cheese.",
         category: "Gourmet Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "18",
         name: "Pepper Barbecue Chicken",
         image: food_18,
-        price: 449,
+        price: 249,
         description: "Pepper barbecue chicken for that extra zing",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "19",
         name: "Chicken Dominator",
         image: food_19,
-        price: 599,
+        price: 399,
         description: "Loaded with double pepper barbecue chicken, peri-peri chicken, chicken tikka & grilled chicken rashers",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "20",
         name: "Smoked Chicken Gourmet-Pizza",
         image: food_20,
-        price: 629,
+        price: 329,
         description: "Gourmet non-veg delight with bocconcini, juicy chicken, olives, bellpeppers & basil pesto.",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "21",
         name: "Fiery Sausage & Paprika",
         image: food_21,
-        price: 449,
+        price: 249,
         description: "Spiciest non veg pizza with spicy & herby chicken sausage and red paprika toppings on a new spicy peri peri sauce base.",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "22",
         name: "Chicken Pepperoni Gourmet-Pizza",
         image: food_22,
-        price: 629,
+        price: 329,
         description: "The classic Italian gourmet pizza with bocconcini cheese and chicken pepperoni.",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "23",
         name: "Non Veg Supreme",
         image: food_23,
-        price: 599,
+        price: 399,
         description: "Supreme combination of black olives, onion, capsicum, grilled mushroom, pepper barbecue chicken, peri-peri chicken & grilled chicken rashers",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "24",
         name: "Chicken Sausage",
         image: food_24,
-        price: 369,
+        price: 269,
         description: "American classic! Spicy, herbed chicken sausage on pizza",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     },
     {
         _id: "25",
         name: "Spiced Double Chicken",
         image: food_25,
-        price: 559,
+        price: 359,
         description: "Delightful combination of our spicy duo- Pepper Barbecue Chicken and Peri Peri Chicken for Chicken Lovers.",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     },
     {
         _id: "26",
         name: "Chicken Golden Delight",
         image: food_26,
-        price: 559,
+        price: 359,
         description: "Double pepper barbecue chicken, golden corn and extra cheese, true delight",
-        category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        category: "Non-Veg Pizza"
     }, {
         _id: "27",
         name: "Indi Chicken Tikka",
         image: food_27,
-        price: 599,
+        price: 399,
         description: "The wholesome flavour of tandoori masala with Chicken tikka, onion, red paprika & mint mayo",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
     }, {
         _id: "28",
         name: "Chicken Pepperoni",
         image: food_28,
-        price: 599,
+        price: 399,
         description: "A classic American taste! Relish the delectable flavor of Chicken Pepperoni, topped with extra cheese",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "29",
         name: "Chicken Fiesta",
         image: food_29,
-        price: 559,
+        price: 359,
         description: " Grilled chicken rashers, peri-peri chicken, onion & capsicum, a complete fiesta",
         category: "Non-Veg Pizza",
-        sizes: [
-            { size: "Small", price: 299 },
-            { size: "Medium", price: 459 },
-            { size: "Large", price: 599 }
-        ]
+        
     }, {
         _id: "30",
         name: "Pepsi 475ml",
         image: food_30,
-        price: 60,
+        price: 40,
         description: "Sparkling and Refreshing Beverage",
         category: "Beverages"
     }, {
         _id: "31",
         name: "Pepsi Black Can 300ml",
         image: food_31,
-        price: 60,
+        price: 40,
         description: "Maximum Taste Zero Calories",
         category: "Beverages"
     }, {
         _id: "32",
         name: "7Up 475ml",
         image: food_32,
-        price: 60,
+        price: 40,
         description: "Refreshing clear drink with a natural lemon flavor",
         category: "Beverages"
     },
@@ -455,7 +337,7 @@ export const food_list = [
         _id: "33",
         name: "Mirinda 475ml",
         image: food_33,
-        price: 60,
+        price: 40,
         description: "Delicious Orange Flavoured beverage",
         category: "Beverages"
     },
@@ -463,7 +345,7 @@ export const food_list = [
         _id: "34",
         name: "Lipton Ice Tea ( 350 ml)",
         image: food_34,
-        price: 60,
+        price: 40,
         description: "Refreshment Sahi, Gas Nahi",
         category: "Beverages"
     }
@@ -479,9 +361,9 @@ export const pizzaBases = [
 ];
 
 export const sizes = [
-    { name: 'Small', price: 349 },
-    { name: 'Medium', price: 449 },
-    { name: 'Large', price: 549 },
+    { name: 'Small', price: 159 },
+    { name: 'Medium', price: 259 },
+    { name: 'Large', price: 359 },
 ];
 
 export const toppings = {

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const PlaceOrder = () => {
-  const {getTotalAmount} = useContext(StoreContext)
+  const {getTotalAmount} = useContext(StoreContext);
+  
   return (
     <form className='place-order'>
       <div className="place-orderleft">

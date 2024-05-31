@@ -6,7 +6,6 @@ import Customize from '../Customize/Customize';
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const { cartItems, addToCart, removeCart } = useContext(StoreContext);
-  const [selectedSize, setSelectedSize] = useState('medium');
   const [showCustomize, setShowCustomize] = useState(false);
   const [customization, setCustomization] = useState(null);
 
@@ -21,7 +20,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
 
   const handleAddToCart = () => {
     if (!customization) {
-      addToCart(id, price, { base: 'Default Base', size: selectedSize, toppings: 'No toppings' });
+      addToCart(id, price, { base: 'Default Base', size: 'Medium', toppings: 'No toppings' });
     } else {
       addToCart(id, customization.price, {
         base: customization.base.name,
@@ -49,7 +48,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
       <div className="fooditem-info">
         <div className="fooditem-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} alt="Rating Stars" />
+          <img className='rating' src={assets.rating_starts} alt="Rating Stars" />
         </div>
         <p className="fooditem-desc">{description}</p>
         <p className="fooditem-price">₹ {price}</p>
