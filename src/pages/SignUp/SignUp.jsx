@@ -17,19 +17,14 @@ const SignUp = () => {
         setValues(prev => ({...prev, [e.target.name]: [e.target.value]}));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
         setErr(validation(values));
-       {
-            axios.post('http://localhost:5000/signup', values)
-            .then(res => {
-                if(res.result.Status === "Success"){
-                    navigate('/') 
-                }else{
-                    alert("Error")
-                }
-            })
-            .catch(err => alert("User is already Taken or Try Again"));
+        try {
+            const res = await axios.post('http://localhost:5000/signup', values);
+            navigate('/');
+        } catch (error) {
+            console.error(error);
         }
     };
 
