@@ -9,6 +9,7 @@
 }
 .login{
     position: absolute;
+    justify-content: center;
     top: 180px;
     border-radius: 10px;
     z-index: 1;
@@ -16,7 +17,7 @@
     width: 30vw;
     height: 60vh;
     background-color: #00000090;
-    display: grid;
+    display: flex;
 }
 .login-container{
     background: transparent;
@@ -46,6 +47,7 @@
     gap: 20px;
 }
 .login-input input{
+    display: flex;
     outline: none;
     border: 1px solid #c9c9c9;
     border-radius: 4px;
@@ -60,6 +62,10 @@
     color: black;
     background-color: beige;
     cursor: pointer;
+    font-size: 18px;
+}
+.text-danger{
+    color: rgba(238, 105, 10, 0.873);
     font-size: 18px;
 }
 /* .Clicking{

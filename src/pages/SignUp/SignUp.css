@@ -3,6 +3,7 @@
     width: 100vw;
     position: absolute;
     left: 0px;
+    display: flex;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url('../../assets/ai-generated-8704064_1280.jpg');

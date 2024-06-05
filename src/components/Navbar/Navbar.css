@@ -13,6 +13,7 @@
     margin-top: 10px;
     margin-bottom: 30px;
     position: sticky;
+    z-index: 1000;
     background-color: white;
     top: 0;
     width: 100%;
@@ -146,9 +147,18 @@
     }
 }
 
-@media (max-width:358px) {
-    .Navbar-signin-link{
+@media (max-width:425px) {
+    .Navbar img{
         display: flex;
-        flex-direction: column;
+        width: 70px;
+        height: 100px;
+    }
+    .Navbar-signin-link{
+        margin-right: 20px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    .navbar-login-button{
+        display: none;
     }
 }

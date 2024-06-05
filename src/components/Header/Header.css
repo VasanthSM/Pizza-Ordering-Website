@@ -12,10 +12,10 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    max-width: 50%;
+    max-width: 60%;
     gap: 2rem;
     align-items: start;
-    left: 52rem;
+    left: 70rem;
     animation: HeaderContent 5s;
 }
 
@@ -60,6 +60,7 @@
     margin-left: 360px;
     cursor: pointer;
     position: relative;
+    z-index: 0;
 }
 
 @media (max-width:1050px) {
@@ -68,7 +69,7 @@
     }
 }
 
-@media (max-width:750px) {
+@media (max-width:768px) {
     .Header-content{
         max-width: 65%;
     }
@@ -81,15 +82,16 @@
     .Header-content button{
         padding: 2vw 4vw;
     }
+    .Header-content .span{
+        display: none;
+    }
     .Header .Menu{
         position: absolute;
         right: 750px;
-        top: 600px;
+        top: 500px;
 
     }
 }
-    
-
 
 @media (max-width:325px) {
     .Header-content{

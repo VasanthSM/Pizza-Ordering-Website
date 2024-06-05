@@ -3,7 +3,7 @@ import './Menu.css';
 import { menu_list } from '../../assets/assets';
 import FoodDisplay from '../FoodDisplay/FoodDisplay';
 
-const Menu = ({ searchQuery }) => {
+const Menu = () => {
   const [category, setCategory] = useState('All');
 
   const handleMenuItemClick = (menuItem) => {
@@ -34,7 +34,7 @@ const Menu = ({ searchQuery }) => {
           </div>
         ))}
       </div>
-      {DisplayFoodDisplay && <FoodDisplay category={category} searchQuery={searchQuery} />}
+      {DisplayFoodDisplay && <FoodDisplay category={category} />}
       <hr />
     </div>
   );

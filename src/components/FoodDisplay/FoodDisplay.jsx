@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import "./FoodDisplay.css";
-import { StoreContext } from '../../context/StoreContext';
+import './FoodDisplay.css';
 import FoodItem from '../FoodItem/FoodItem';
+import { StoreContext } from '../../context/StoreContext';
 
 const FoodDisplay = ({ category, searchQuery }) => {
   const { food_list } = useContext(StoreContext);
@@ -30,7 +30,7 @@ const FoodDisplay = ({ category, searchQuery }) => {
       {Object.keys(categorizedFoodList).map((cat) => (
         <div key={cat}>
           <h3 className='fooddisplay-category'>{cat}</h3>
-          <div className="fooddisplay-list">
+          <div className="fooddisplay-list">   
             {categorizedFoodList[cat].map((item, index) => {
               if (category === 'All' || category === item.category) {
                 return (

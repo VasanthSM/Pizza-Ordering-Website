@@ -6,6 +6,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
 
+
   const addToCart = (itemId, price, customization = null) => {
     setCartItems((prev) => {
       const existingItem = prev[itemId] || { quantity: 0, price: 0, customizations: [] };
@@ -49,6 +50,16 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
+const filterFoodList = (foodList, query) => {
+  if (!query) return foodList;
+  const lowercaseQuery = query.toLowerCase();
+  return foodList.filter(item =>
+    item.name.toLowerCase().includes(lowercaseQuery) ||
+    item.description.toLowerCase().includes(lowercaseQuery)
+  );
+};
+
+
   const contextValue = {
     food_list,
     cartItems,
@@ -56,6 +67,7 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeCart,
     getTotalAmount,
+    filterFoodList
   };
 
   return (

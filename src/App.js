@@ -15,7 +15,6 @@ const App = () => {
   return (
     <>
     <div className='App'>
-      <Navbar onSearch={setSearchQuery} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
