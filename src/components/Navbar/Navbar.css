@@ -16,7 +16,7 @@
     z-index: 1000;
     background-color: white;
     top: 0;
-    width: 100%;
+    width: 101%;
 }
 
 .Logo {
@@ -100,6 +100,45 @@
     display: inline-block;
 }
 
+.Navbar-profile{
+    position: relative;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.nav-profile{
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 1;
+    height: 100PX;
+}
+.Navbar-profile:hover .nav-profile{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    background-color: #bdbab9;
+    padding: 12px 25px;
+    border-radius: 4px;
+    list-style: none;
+    border: none;
+}
+
+.nav-profile li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.nav-profile li:hover{
+    color: tomato;
+}
+
+.nav-profile .icons{
+    width: 20px;
+}
+.nav-profile p{
+    font-size: 17px;
+}
 
 
 @media (max-width:1050px) {

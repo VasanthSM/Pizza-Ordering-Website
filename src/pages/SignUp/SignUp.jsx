@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './SignUp.css';
 import axios from 'axios';
 import validation from './SignupValidation';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const SignUp = () => {
-    const navigate = useNavigate(); 
-    const [err, setErr] = useState()
+    const navigate = useNavigate();
+    const [err, setErr] = useState();
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -14,22 +14,25 @@ const SignUp = () => {
     });
 
     const handleChange = (e) => {
-        setValues(prev => ({...prev, [e.target.name]: [e.target.value]}));
+        setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErr(validation(values));
         try {
             const res = await axios.post('http://localhost:5000/signup', values);
-            navigate('/');
+            if (res.status === 200) {
+                document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
+                navigate('/');
+            }
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <main className='signin-head'>
+        <main className="signin-head">
             <div className="Signup">
                 <form onSubmit={handleSubmit} className="signup-container">
                     <div className="signup-content">
@@ -40,7 +43,7 @@ const SignUp = () => {
                             type="text"
                             id="name"
                             name="name"
-                            placeholder='Enter your Name..'
+                            placeholder="Enter your Name.."
                             value={values.name}
                             onChange={handleChange}
                             required
@@ -49,7 +52,7 @@ const SignUp = () => {
                             type="email"
                             id="email"
                             name="email"
-                            placeholder='Enter your Email..'
+                            placeholder="Enter your Email.."
                             value={values.email}
                             onChange={handleChange}
                             required
@@ -58,18 +61,23 @@ const SignUp = () => {
                             type="password"
                             id="password"
                             name="password"
-                            placeholder='Enter your Password..'
+                            placeholder="Enter your Password.."
                             value={values.password}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    <div className='checkbox-content'>
-                        <input className='checkbox' type="checkbox" required />
-                        <label className='Policy'><p>By continuing, I agree to the use of privary & Policy</p></label>
+                    <div className="checkbox-content">
+                        <input className="checkbox" type="checkbox" required />
+                        <label className="Policy">
+                            <p>By continuing, I agree to the use of privary & Policy</p>
+                        </label>
                     </div>
-                    <div className='account'>
-                        <p> Already have an account? <Link className='Clicking' to='/login'>Login here</Link></p>
+                    <div className="account">
+                        <p>
+                            {' '}
+                            Already have an account? <Link className="Clicking" to="/login">Login here</Link>
+                        </p>
                     </div>
                     <button type="submit">Sign Up</button>
                 </form>

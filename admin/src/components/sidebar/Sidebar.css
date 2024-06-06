@@ -1,5 +1,5 @@
 .sidebar{
-    width: 18%;
+    width: 20%;
     min-height: 100vh;
     border-top: 0px;
     border: 1.5px solid #a9a9a9;
@@ -26,7 +26,11 @@
     background-color: beige;
     border-color: rgb(223, 158, 38);
 }
-
+.sidebar-option .icons{
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+}
 
 @media (max-width:900px){
     .sidebar-option p{

@@ -1,5 +1,6 @@
 import React from 'react';
-import { assets } from '../../assets/assets';
+import { IoAddCircle, IoListCircleSharp } from "react-icons/io5";
+import { MdOutlineBookmarkBorder } from "react-icons/md";
 import "./Sidebar.css";
 import { NavLink } from 'react-router-dom';
 
@@ -8,15 +9,15 @@ const Sidebar = () => {
     <div className='sidebar'>
         <div className="sidebar-options">
             <NavLink to='/add' className="sidebar-option">
-                <img src={assets.add_icon} alt="" />
+            <IoAddCircle className='icons' />
                 <p>Add Items</p>
             </NavLink>
             <NavLink to='/list' className="sidebar-option">
-                <img src={assets.order_icon} alt="" />
+            <IoListCircleSharp className='icons' />
                 <p>List Items</p>
             </NavLink>
             <NavLink to='/orders' className="sidebar-option">
-                <img src={assets.order_icon} alt="" />
+            <MdOutlineBookmarkBorder className='icons' />
                 <p>Orders</p>
             </NavLink>
         </div>

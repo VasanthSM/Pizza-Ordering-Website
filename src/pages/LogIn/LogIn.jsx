@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LogIn = () => {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         email: '',
         password: ''
@@ -18,7 +18,10 @@ const LogIn = () => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/login', values);
-            navigate('/');
+            if (res.status === 200) {
+                document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
+                navigate('/');
+            }
         } catch (error) {
             console.error(error);
         }

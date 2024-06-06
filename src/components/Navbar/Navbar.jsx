@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import pizzaLogo from '../../assets/logo-removebg-preview.png';
 import './Navbar.css';
-import { IoSearch, IoCart } from 'react-icons/io5';
-import { Link, useLocation } from 'react-router-dom';
+import { IoSearch, IoCart,IoLogOut,IoBag } from 'react-icons/io5';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
 import Cart from '../../pages/Cart/Cart';
 import { assets } from '../../assets/assets';
+
 
 const Navbar = ({ onSearch }) => {
     const [menu, setMenu] = useState('Home');
@@ -13,6 +15,9 @@ const Navbar = ({ onSearch }) => {
     const location = useLocation();
     const [isCartVisible, setCartVisible] = useState(false);
     const cartRef = useRef(null);
+    const navigate = useNavigate('')
+    const token = document.cookie;
+    console.log(token)
 
     const toggleCartVisibility = () => {
         setCartVisible(!isCartVisible);
@@ -42,6 +47,12 @@ const Navbar = ({ onSearch }) => {
           document.removeEventListener('mousedown', handleClickOutside);
         };
       }, [isCartVisible]);
+
+      const logout = () => {
+        document.cookie = 'token=; expires=Thu, 01 Jan 2024 00:00:00 UTC;';
+        navigate('/');
+    };
+    
 
     return (
         <>
@@ -73,17 +84,18 @@ const Navbar = ({ onSearch }) => {
                             <IoCart onClick={toggleCartVisibility} />
                         </div>
 
-                        <div className='Navbar-signin'>
+                        {!token ? <div className='Navbar-signin'>
                             <Link to='/signup' className='Navbar-signin-link'>Sign up</Link>
                             <Link to='/login' className='Navbar-signin-link navbar-login-button'>Log in</Link>
-                        </div> : <div className='Navbar-profile'>
-                            <img src={assets.profile_icon} alt="" />
+                            </div> : <div className='Navbar-profile'>
+                            <CgProfile className='profile-icon' />
                             <ul className="nav-profile">
-                                <li><img src={assets.bag_icon} alt="" />Orders</li>
+                                <li><IoBag className='icons' /><p>Orders</p></li>
                                 <hr />
-                                <li><img src={assets.logout_icon} alt="" />Logout</li>
+                                <li onClick={logout}><IoLogOut className='icons' /><p>Logout</p></li>
                             </ul>
-                        </div> 
+                        </div>
+                        }
                     </div>
                     {isCartVisible && <Cart />} 
                 </div>
