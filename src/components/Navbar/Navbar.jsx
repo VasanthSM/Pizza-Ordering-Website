@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 import pizzaLogo from '../../assets/logo-removebg-preview.png';
 import './Navbar.css';
 import { IoSearch, IoCart,IoLogOut,IoBag } from 'react-icons/io5';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import Cart from '../../pages/Cart/Cart';
-import { assets } from '../../assets/assets';
+
 
 
 const Navbar = ({ onSearch }) => {

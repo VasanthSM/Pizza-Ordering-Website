@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import Customize from '../Customize/Customize';
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const { cartItems, addToCart, removeCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeCart, url } = useContext(StoreContext);
   const [showCustomize, setShowCustomize] = useState(false);
   const [customization, setCustomization] = useState(null);
 
@@ -34,7 +34,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className="food-item">
       <div className="fooditem-image-container">
-        <img className="fooditem-image" src={image} alt={name} />
+        <img className="fooditem-image" src={`${url}/uploads/${image}`} alt={name} />
         {!cartItems[id] ? (
           <img className="additem" onClick={handleAddToCart} src={assets.add_icon_white} alt="Add" />
         ) : (

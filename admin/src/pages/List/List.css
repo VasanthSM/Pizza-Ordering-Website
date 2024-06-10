@@ -2,21 +2,33 @@
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
     border: 1px solid #cacaca;
     font-size: 20px;
     padding: 12px 25px;
 }
-
+.Header-title{
+    font-size: 38px;
+    color: rgb(251, 142, 0);
+    margin-bottom: 5px;
+}
 .list-table-format .title{
     background-color: #f9f9f9;
+    gap: 20px;
 }
 
 .list-table-format img{
-    width: 70px;
+    width: 80px;
+    height: 80px;
 }
 .cursor{
     cursor: pointer;
+}
+
+.cursor .Cursor-pointer{
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
 }
 
 @media (max-width:600px) {

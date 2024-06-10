@@ -10,7 +10,7 @@ const Add = () => {
     name: "",
     description: "",
     price: "",
-    category: "Veg_Pizza" 
+    category: "Veg Pizza" 
   });
 
   const onChangeData = (e) => {
@@ -77,10 +77,10 @@ const Add = () => {
           <div className="add-category flex-col">
             <p>Product Category</p>
             <select onChange={onChangeData} name="category" value={data.category}>
-              <option value="Veg- Pizza">Veg-Pizza</option>
+              <option value="Veg Pizza">Veg Pizza</option>
               <option value="Non-Veg Pizza">Non-Veg Pizza</option>
               <option value="Gourmet Pizza">Gourmet Pizza</option>
-              <option value="Bevarages">Bevarages</option>
+              <option value="Beverages">Beverages</option>
             </select>
           </div>
           <div className="add-price flex-col">

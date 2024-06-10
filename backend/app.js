@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const multer = require('multer'); 
 const path = require('path');
 const app = express();
+const {v4:uuidv4} = require("uuid")
+const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
+
 
 app.use(cors());
 app.use(express.json());
@@ -120,12 +123,12 @@ app.get('/list', (req, res) => {
 });
 
 app.post('/remove', (req, res) => {
-    const { id } = req.body;
-    if (!id) {
+    const { _id } = req.body;
+    if (!_id) {
         return res.status(400).json({ message: "ID is required" });
     }
-    const sql = "DELETE FROM data WHERE id = ?";
-    db.query(sql, [id], (err, results) => {
+    const sql = "DELETE FROM data WHERE _id = ?";
+    db.query(sql, [_id], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: "Internal Server Error" });
@@ -139,6 +142,91 @@ app.post('/remove', (req, res) => {
 
 app.get('/data', (req, res) => {
     const sql = "SELECT * FROM data";
+    
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ message: "Internal Server Error" });
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+app.post("/payment", async (req, res) => {
+    try {
+        const { product, token } = req.body;
+        const transactionKey = uuidv4();
+
+        const customer = await stripe.customers.create({
+            email: token.email,
+            source: token.id
+        });
+
+        const charge = await stripe.charges.create({
+            amount: product.price,
+            currency: "inr",
+            customer: customer.id,
+            receipt_email: token.email,
+            description: product.name
+        });
+
+        res.json(charge);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+  
+
+app.post('/order', (req, res) => {
+    let { userDetails, paymentData, totalAmount, cartItems } = req.body;
+    if (!Array.isArray(cartItems)) {
+        cartItems = [cartItems]; 
+    }
+
+    const order = {
+        first_name: userDetails.firstName,
+        last_name: userDetails.lastName,
+        email: userDetails.email,
+        street: userDetails.street,
+        city: userDetails.city,
+        district: userDetails.district,
+        state: userDetails.state,
+        zip_code: userDetails.zipCode,
+        mobile_number: userDetails.mobileNumber,
+        total_amount: totalAmount,
+        userDetails: JSON.stringify(userDetails),
+        cartItems: JSON.stringify(cartItems),
+        payment_data: JSON.stringify(paymentData)
+    };
+    
+    const orderQuery = 'INSERT INTO orders SET ?';
+    db.query(orderQuery, order, (err, result) => {
+        if (err) {
+            console.error('Error placing order:', err);
+            return res.status(500).json({ error: 'Failed to place order' });
+        }
+        const orderId = result.insertId;
+        
+        // Proceed with inserting order items
+        // const orderItems = cartItems.map(item => [orderId, item.name, item.quantity, item.price]);
+
+        // const orderItemsQuery = 'INSERT INTO order_items (order_id, item_name, quantity, price) VALUES ?';
+        // db.query(orderItemsQuery, [orderItems], (err, result) => {
+        //     if (err) {
+        //         console.error('Error placing order items:', err);
+        //         return res.status(500).json({ error: 'Failed to place order items' });
+        //     }
+        //     console.log('Order and items placed:', orderId);
+        //     res.status(200).json({ message: 'Order placed successfully', orderId });
+        // });
+    });
+});
+
+
+app.get('/order', (req, res) => {
+    const sql = "SELECT * FROM orders";
     
     db.query(sql, (err, results) => {
         if (err) {

@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar/Navbar';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Cart from "./pages/Cart/Cart";
 import Home from "./pages/Home/Home";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Menu from './components/Menu/Menu';
 import Footer from './components/Footer/Footer';
-
+import Navbar from './components/Navbar/Navbar';
 import LogIn from './pages/LogIn/LogIn';
 import SignUp from './pages/SignUp/SignUp';
+import { useLocation } from 'react-router-dom';
+import Account from './components/account/Account';
 
-const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+const App = () => {const location = useLocation()
+  
+  const displayNavbar = !['/'].includes(location.pathname)
+
   return (
     <>
     <div className='App'>
+      {displayNavbar && <Navbar/>}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
@@ -25,6 +29,7 @@ const App = () => {
         <Route path="/contact" element={<Footer />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path='/account' element={<Account />} />
       </Routes>
     </div>
     </>

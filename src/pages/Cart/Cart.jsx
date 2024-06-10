@@ -5,7 +5,7 @@ import { MdCancel } from 'react-icons/md';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Cart = () => {
-  const { cartItems, food_list, removeCart, getTotalAmount } = useContext(StoreContext);
+  const { url, cartItems, food_list, removeCart, getTotalAmount } = useContext(StoreContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,7 +32,7 @@ const Cart = () => {
             return (
               <div key={index}>
                 <div className='cart-items-item'>
-                  <img src={item.image} alt="" />
+                  <img src={`${url}/uploads/${item.image}`} alt="" />
                   <div>
                     <p>{item.name}</p>
                     {cartItem.customization && (

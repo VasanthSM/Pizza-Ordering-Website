@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./List.css";
 import axios from 'axios';
+import { TiDelete } from "react-icons/ti";
 import { toast } from 'react-toastify';
 
 const List = () => {
@@ -26,7 +27,7 @@ const List = () => {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post('http://localhost:5000/remove', { id: foodId });
+      const response = await axios.post('http://localhost:5000/remove', { _id: foodId });
       if (response.status === 200) {
         toast.success("Food Removed");
         fetchList();
@@ -41,14 +42,14 @@ const List = () => {
 
   return (
     <div className='list add flex-col'>
-      <p>All Food List</p>
+      <p className='Header-title'>All Food List</p>
       <div className="list-table">
         <div className="list-table-format title">
           <p>Image</p>
           <p>Name</p>
           <p>Category</p>
           <p>Price</p>
-          <p>Action</p>
+          <p>Remove</p>
         </div>
         {list.map((item, index) => (
           <div key={index} className="list-table-format">
@@ -56,7 +57,7 @@ const List = () => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>₹{item.price}</p>
-            <p onClick={() => removeFood(item.id)} className='cursor'>X</p>
+            <p onClick={() => removeFood(item._id)} className='cursor'><TiDelete className='Cursor-pointer' /></p>
           </div>
         ))}
       </div>
