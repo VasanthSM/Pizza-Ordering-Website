@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Order.css';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
   const [userEmail, setUserEmail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userEmailid = localStorage.getItem('Email:');
@@ -31,6 +33,22 @@ const Order = () => {
     }
   }, [userEmail]);
 
+  const handleReorder = async (order) => {
+    try {
+      const { total_amount, cartItems } = order;
+      const response = await axios.post("http://localhost:5000/reorder", { totalAmount: total_amount, cartItems: cartItems });
+      if (response.status === 200) {
+        order.total_amount = response.data.newTotalAmount;
+
+        setOrders([...orders]);
+      }
+      localStorage.setItem('reorderData', JSON.stringify({ totalAmount: order.total_amount, cartItems: cartItems }));
+      navigate('/order');
+    } catch (error) {
+      console.error('Error reordering:', error);
+    }
+  };
+  
   return (
     <div className='order'>
       <h1>Previous Orders</h1>
@@ -61,7 +79,7 @@ const Order = () => {
                 </li>
               ))}
             </ul>
-            <button className='PlaceOrder'>Re-Order</button>
+            <button className='PlaceOrder' onClick={() => handleReorder(order)}>Re-Order</button>
             <hr className='Line' />
           </div>
         )

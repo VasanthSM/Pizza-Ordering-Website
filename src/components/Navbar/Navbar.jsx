@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import pizzaLogo from '../../assets/logo-removebg-preview.png';
 import './Navbar.css';
-import { IoSearch, IoCart,IoLogOut,IoBag } from 'react-icons/io5';
+import { IoSearch, IoCart, IoLogOut, IoBag } from 'react-icons/io5';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import Cart from '../../pages/Cart/Cart';
-
 
 const Navbar = ({ onSearch }) => {
     const [menu, setMenu] = useState('Home');
@@ -14,7 +13,7 @@ const Navbar = ({ onSearch }) => {
     const location = useLocation();
     const [isCartVisible, setCartVisible] = useState(false);
     const cartRef = useRef(null);
-    const navigate = useNavigate('')
+    const navigate = useNavigate('');
     const token = document.cookie;
     console.log(token)
 
@@ -36,22 +35,21 @@ const Navbar = ({ onSearch }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-          if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.cart')) {
-            setCartVisible(false);
-          }
+            if (isCartVisible && cartRef.current && !cartRef.current.contains(event.target) && !event.target.closest('.cart')) {
+                setCartVisible(false);
+            }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
-      }, [isCartVisible]);
+    }, [isCartVisible]);
 
-      const logout = () => {
+    const logout = () => {
         document.cookie = 'token=; expires=Thu, 01 Jan 2024 00:00:00 UTC;';
         navigate('/');
     };
-    
 
     return (
         <>
@@ -66,19 +64,21 @@ const Navbar = ({ onSearch }) => {
                         <Link to='/account' onClick={() => setMenu('Account')} className={`${menu === 'Account' ? 'active' : ''} link-hover`}>Account</Link>
                         <Link to='/contact' onClick={() => setMenu('Contact Us')} className={`${menu === 'Contact Us' ? 'active' : ''} link-hover`}>Contact Us</Link>
                     </ul>
-                    <div className='Navbar-right'> 
-                        <div className='Navbar-search'>
-                            <IoSearch onClick={toggleSearch} />
-                            {searchVisible && (
-                                <input 
-                                    type='text' 
-                                    value={searchQuery} 
-                                    onChange={handleSearchChange} 
-                                    placeholder='Search...' 
-                                    className='Navbar-search-input'
-                                />
-                            )}
-                        </div>
+                    <div className='Navbar-right'>
+                        {location.pathname === '/' && ( 
+                            <div className='Navbar-search'>
+                                <IoSearch onClick={toggleSearch} />
+                                {searchVisible && (
+                                    <input
+                                        type='text'
+                                        value={searchQuery}
+                                        onChange={handleSearchChange}
+                                        placeholder='Search...'
+                                        className='Navbar-search-input'
+                                    />
+                                )}
+                            </div>
+                        )}
                         <div className='Navbar-cart' ref={cartRef}>
                             <IoCart onClick={toggleCartVisibility} />
                         </div>
@@ -86,7 +86,7 @@ const Navbar = ({ onSearch }) => {
                         {!token ? <div className='Navbar-signin'>
                             <Link to='/signup' className='Navbar-signin-link'>Sign up</Link>
                             <Link to='/login' className='Navbar-signin-link navbar-login-button'>Log in</Link>
-                            </div> : <div className='Navbar-profile'>
+                        </div> : <div className='Navbar-profile'>
                             <CgProfile className='profile-icon' />
                             <ul className="nav-profile">
                                 <Link to='orderlist'><li><IoBag className='icons' /><p>Orders</p></li></Link>
@@ -96,7 +96,7 @@ const Navbar = ({ onSearch }) => {
                         </div>
                         }
                     </div>
-                    {isCartVisible && <Cart />} 
+                    {isCartVisible && <Cart />}
                 </div>
             )}
         </>

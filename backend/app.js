@@ -253,8 +253,22 @@ app.get('/users', (req, res) => {
     });
 });
 
+const axios = require('axios');
 
-
+app.post('/reorder', async (req, res) => {
+    try {
+        const orderResponse = await axios.get('http://localhost:5000/order');
+        const { total_amount, cartItems } = orderResponse.data;
+        const newOrder = {
+            totalAmount: total_amount,
+            cartItems: cartItems
+        };
+        res.status(200).json({ message: "Reorder placed successfully", newOrder: newOrder });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 const PORT = process.env.PORT || 5000;
