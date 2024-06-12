@@ -5,6 +5,8 @@ import Menu from '../../components/Menu/Menu'
 import FoodDisplay from '../../components/FoodDisplay/FoodDisplay'
 import Footer from '../../components/Footer/Footer'
 import Navbar from '../../components/Navbar/Navbar'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Home = () => {
   const [Category, setCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,6 +14,7 @@ const Home = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Navbar onSearch={setSearchQuery} />
       <Header/>
       <Menu Category={Category} searchQuery={searchQuery} setCategory={setCategory} />

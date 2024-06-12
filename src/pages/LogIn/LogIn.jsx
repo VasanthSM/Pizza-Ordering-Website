@@ -19,11 +19,12 @@ const LogIn = () => {
         try {
             const res = await axios.post('http://localhost:5000/login', values);
             if (res.status === 200) {
+                localStorage.setItem("Email:",values.email)
                 document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
                 navigate('/');
             }
         } catch (error) {
-            console.error(error);
+            alert(error);
         }
     };
 
@@ -53,9 +54,9 @@ const LogIn = () => {
                     </div>
                     <button type='submit'>Login</button>
                     <div className='login-checkbox'>
-                        <input className='checkbox' type="checkbox" />
+                        <input className='checkbox' type="checkbox" required />
                         <label className='Policy'>
-                            <p>By continuing, I agree to the use of privacy & Policy</p>
+                            <p>By continuing, I agree to the use of privacy & Policy </p>
                         </label>
                     </div>
                     <div className='account'>

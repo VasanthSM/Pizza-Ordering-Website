@@ -10,6 +10,7 @@ import LogIn from './pages/LogIn/LogIn';
 import SignUp from './pages/SignUp/SignUp';
 import { useLocation } from 'react-router-dom';
 import Account from './components/account/Account';
+import Order from './components/order/Order';
 
 const App = () => {const location = useLocation()
   
@@ -30,6 +31,7 @@ const App = () => {const location = useLocation()
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path='/account' element={<Account />} />
+        <Route path='/orderlist' element={<Order />} />
       </Routes>
     </div>
     </>

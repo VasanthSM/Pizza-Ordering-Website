@@ -88,6 +88,16 @@ margin: 0 10px;
     font-size: 18px;
 }
 
+.fooditem-options{
+    display:grid;
+    grid-template-columns: repeat(2,2fr);
+}
+.fooditem-id{
+    margin-left: 140px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 @media (max-width:425px) {
     .fooditem-options{
         font-size: 15px;

@@ -94,6 +94,20 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.get('/login', (req, res) => {
+    const sql = "SELECT * FROM data";
+    
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ message: "Internal Server Error" });
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+
 app.post('/data', upload.single('image'), (req, res) => {
     const { name, description, price, category } = req.body;
     const image = req.file;
@@ -184,6 +198,7 @@ app.post('/order', (req, res) => {
     if (!Array.isArray(cartItems)) {
         cartItems = [cartItems]; 
     }
+  
 
     const order = {
         first_name: userDetails.firstName,
@@ -209,18 +224,6 @@ app.post('/order', (req, res) => {
         }
         const orderId = result.insertId;
         
-        // Proceed with inserting order items
-        // const orderItems = cartItems.map(item => [orderId, item.name, item.quantity, item.price]);
-
-        // const orderItemsQuery = 'INSERT INTO order_items (order_id, item_name, quantity, price) VALUES ?';
-        // db.query(orderItemsQuery, [orderItems], (err, result) => {
-        //     if (err) {
-        //         console.error('Error placing order items:', err);
-        //         return res.status(500).json({ error: 'Failed to place order items' });
-        //     }
-        //     console.log('Order and items placed:', orderId);
-        //     res.status(200).json({ message: 'Order placed successfully', orderId });
-        // });
     });
 });
 
@@ -237,6 +240,22 @@ app.get('/order', (req, res) => {
         }
     });
 });
+app.get('/users', (req, res) => {
+    const sql = "SELECT * FROM users";
+    
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ message: "Internal Server Error" });
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,0 +1,39 @@
+.account{
+    font-size: 21px;
+    display: flex;
+    flex-direction: column;
+    color: Black;
+    width: 100%;
+}
+h1{
+    margin-bottom: 30px;
+}
+
+.user-details p{
+    font-size: 20px;
+    color: black;
+    display: flex;
+    line-height: 45px;
+    gap: 30px;
+}
+/* .image-container {
+    margin-top: 50px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .account-image {
+    height: 300px;
+    width: auto; 
+    animation: moveLinear 5s linear infinite; 
+  }
+  
+  @keyframes moveLinear {
+    0% {
+      transform: translateX(0); 
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+   */

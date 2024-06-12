@@ -1,23 +1,24 @@
-import { createContext,useEffect,useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [food_list, setFoodList] = useState([]);
-  const url ="http://localhost:5000"
-  const addToCart = (itemId, price, customization = null) => {
+  const url = "http://localhost:5000";
+
+  const addToCart = (itemId, price, customization, name = null) => {
     setCartItems((prev) => {
-      const existingItem = prev[itemId] || { quantity: 0, price: 0, customizations: [] };
+      const existingItem = prev[itemId] || { quantity: 0, price: 0, customizations: [], name: null };
       return {
         ...prev,
         [itemId]: {
           quantity: existingItem.quantity + 1,
           price: price || existingItem.price,
-          customizations: customization ? [...existingItem.customizations, customization] : existingItem.customizations
-        }
+          customizations: customization ? [...existingItem.customizations, customization] : existingItem.customizations,
+          name: name || existingItem.name, 
+        },
       };
     });
   };
@@ -33,13 +34,12 @@ const StoreContextProvider = (props) => {
           ...prev,
           [itemId]: {
             ...prev[itemId],
-            quantity: prev[itemId].quantity - 1
-          }
+            quantity: prev[itemId].quantity - 1,
+          },
         };
       }
     });
   };
-  
 
   const getTotalAmount = () => {
     let totalAmount = 0;
@@ -51,29 +51,27 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-const filterFoodList = (foodList, query) => {
-  if (!query) return foodList;
-  const lowercaseQuery = query.toLowerCase();
-  return foodList.filter(item =>
-    item.name.toLowerCase().includes(lowercaseQuery) ||
-    item.description.toLowerCase().includes(lowercaseQuery)
-  );
-};
+  const filterFoodList = (foodList, query) => {
+    if (!query) return foodList;
+    const lowercaseQuery = query.toLowerCase();
+    return foodList.filter(
+      (item) =>
+        item.name.toLowerCase().includes(lowercaseQuery) ||
+        item.description.toLowerCase().includes(lowercaseQuery)
+    );
+  };
 
-const fetchFoodList = async ()=>{
-  const response = await axios.get("http://localhost:5000/list");
-  setFoodList(response.data)
-  console.log(response.data)
-}
+  const fetchFoodList = async () => {
+    const response = await axios.get("http://localhost:5000/list");
+    setFoodList(response.data);
+  };
 
-useEffect(()=>{
-  async function loadData(){
-    await fetchFoodList()
-  }
-  loadData();
-}, [])
-
-
+  useEffect(() => {
+    async function loadData() {
+      await fetchFoodList();
+    }
+    loadData();
+  }, []);
 
   const contextValue = {
     food_list,
@@ -83,7 +81,7 @@ useEffect(()=>{
     removeCart,
     getTotalAmount,
     filterFoodList,
-    url
+    url,
   };
 
   return (

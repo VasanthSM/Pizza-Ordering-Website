@@ -20,7 +20,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
 
   const handleAddToCart = () => {
     if (!customization) {
-      addToCart(id, price, { base: 'Default Base', size: 'Medium', toppings: 'No toppings' });
+      addToCart(id, price, name,{ base: 'Default Base', size: 'Medium', toppings: 'No toppings' });
     } else {
       addToCart(id, customization.price, {
         base: customization.base.name,
@@ -52,9 +52,11 @@ const FoodItem = ({ id, name, price, description, image }) => {
         </div>
         <p className="fooditem-desc">{description}</p>
         <p className="fooditem-price">₹ {price}</p>
+        
         <div className="fooditem-options">
           <button className="customize-btn" onClick={toggleCustomize}>Customize</button>
           {showCustomize && <Customize onAddToCart={handleCustomizationChange} />}
+          <p className='fooditem-id'> ID: {id}</p>
         </div>
       </div>
     </div>

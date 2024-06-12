@@ -1,19 +1,19 @@
 import React, { useContext, useState } from 'react';
 import './PlaceOrder.css';
 import { StoreContext } from '../../context/StoreContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
   const { getTotalAmount, cartItems } = useContext(StoreContext);
+  const navigate = useNavigate();
   const [product, setProduct] = useState({
     name: "Order Bill",
     price: (getTotalAmount() + 10) * 100,
     productBy: "PizzaMan"
   });
-
   const [userDetails, setUserDetails] = useState({
     firstName: '',
     lastName: '',
@@ -39,17 +39,16 @@ const PlaceOrder = () => {
     const headers = {
       "Content-Type": "application/json"
     };
-    console.log('Payment Data:', body); 
     try {
       const response = await axios.post('http://localhost:5000/payment', body, { headers });
       console.log(response);
-      handlePlaceOrder(token, response.data);
+      await handlePlaceOrder(token, response.data);
     } catch (err) {
       console.error('Payment Error:', err);
       alert('Payment Error: ' + err.message);
     }
   };
-  
+
   const handlePlaceOrder = async (paymentData) => {
     let orderDetails = {
       userDetails,
@@ -58,23 +57,28 @@ const PlaceOrder = () => {
       cartItems,
       orderTime: new Date().toISOString()
     };
-    const CombinedData=JSON.stringify(orderDetails);
+    const combinedData = JSON.stringify(orderDetails);
     try {
-      const response = await axios.post('http://localhost:5000/order', CombinedData, {
+      console.log('Placing order:', combinedData);
+      const response = await axios.post('http://localhost:5000/order', combinedData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      console.log('Order placed successfully:', response.data);
-      alert('Order placed successfully!');
-    } catch (error) {
-      console.error('Error placing order:', error);
-      toast.error('Error placing order: ' + error.message);
+      if(response.data.status===200){
+        toast.success("Order Placed Successfully");
+        navigate('/');
+      }else{
+        toast.error("UnSuccessful Order Placed, Try Again")
+      }
+    }catch (err) {
+      alert('Order Placement Error: ' + err.message);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Form submitted');
   };
 
   return (

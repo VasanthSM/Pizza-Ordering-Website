@@ -23,6 +23,7 @@ const SignUp = () => {
         try {
             const res = await axios.post('http://localhost:5000/signup', values);
             if (res.status === 200) {
+                localStorage.setValues("Email:",values.email)
                 document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
                 navigate('/');
             }

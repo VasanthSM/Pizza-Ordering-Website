@@ -7,7 +7,6 @@ import { CgProfile } from "react-icons/cg";
 import Cart from '../../pages/Cart/Cart';
 
 
-
 const Navbar = ({ onSearch }) => {
     const [menu, setMenu] = useState('Home');
     const [searchVisible, setSearchVisible] = useState(false);
@@ -90,7 +89,7 @@ const Navbar = ({ onSearch }) => {
                             </div> : <div className='Navbar-profile'>
                             <CgProfile className='profile-icon' />
                             <ul className="nav-profile">
-                                <li><IoBag className='icons' /><p>Orders</p></li>
+                                <Link to='orderlist'><li><IoBag className='icons' /><p>Orders</p></li></Link>
                                 <hr />
                                 <li onClick={logout}><IoLogOut className='icons' /><p>Logout</p></li>
                             </ul>

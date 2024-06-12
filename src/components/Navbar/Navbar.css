@@ -122,6 +122,16 @@
     list-style: none;
     border: none;
 }
+.nav-profile Link{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.nav-profile Link:hover{
+    color: tomato;
+}
+
 
 .nav-profile li{
     display: flex;
