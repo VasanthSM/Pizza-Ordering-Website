@@ -1,6 +1,9 @@
 .pizza-customize{
     display: flex;
     flex-direction: column;
+    position: relative;
+    left: 0px;
+
 }
 
 .pizza-customize h2{

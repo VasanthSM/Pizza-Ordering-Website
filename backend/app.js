@@ -4,10 +4,10 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const multer = require('multer'); 
 const path = require('path');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const app = express();
-const {v4:uuidv4} = require("uuid")
 const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
-
 
 app.use(cors());
 app.use(express.json());
@@ -72,13 +72,14 @@ app.post('/signup', (req, res) => {
     });
 });
 
+// POST route to handle user login
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
 
     db.query(sql, [email, password], (err, result) => {
         if (err) {
-            console.log(err);
+            console.error(err);
             res.status(500).json({ message: "Internal Server Error" });
         } else {
             if (result.length > 0) {
@@ -93,6 +94,7 @@ app.post('/login', (req, res) => {
         }
     });
 });
+
 
 app.get('/login', (req, res) => {
     const sql = "SELECT * FROM data";
@@ -170,7 +172,7 @@ app.get('/data', (req, res) => {
 app.post("/payment", async (req, res) => {
     try {
         const { product, token } = req.body;
-        const transactionKey = uuidv4();
+        
 
         const customer = await stripe.customers.create({
             email: token.email,
@@ -198,7 +200,6 @@ app.post('/order', (req, res) => {
     if (!Array.isArray(cartItems)) {
         cartItems = [cartItems]; 
     }
-  
 
     const order = {
         first_name: userDetails.firstName,
@@ -253,22 +254,81 @@ app.get('/users', (req, res) => {
     });
 });
 
-const axios = require('axios');
 
-app.post('/reorder', async (req, res) => {
-    try {
-        const orderResponse = await axios.get('http://localhost:5000/order');
-        const { total_amount, cartItems } = orderResponse.data;
-        const newOrder = {
-            totalAmount: total_amount,
-            cartItems: cartItems
-        };
-        res.status(200).json({ message: "Reorder placed successfully", newOrder: newOrder });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+const generateToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+};
+
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'vasanthsubburaj24@gmail.com', 
+        pass: 'jjdp hwkg lymd guow'   
     }
 });
+app.post('/forgotpassword', (req, res,token) => {
+    const { email } = req.body;
+    const resetToken = generateToken(); 
+
+    const updateTokenQuery = "UPDATE users SET reset_password_token = ?, reset_password_expires = ? WHERE Email = ?";
+
+    db.query(updateTokenQuery, [resetToken, Date.now() + 3600000, email], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ message: "Internal Server Error" });
+        } else {
+            if (result.affectedRows === 0) {
+                return res.status(200).json({ message: "Password reset email sent if the user exists" });
+            }
+            const resetUrl = `http://localhost:3000/resetpassword/${token}`;
+            const mailOptions = {
+                to: email,
+                from: 'vasanthsubburaj24@gmail.com',
+                subject: 'Password Reset Request',
+                text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
+                Please click on the following link, or paste this into your browser to complete the process:\n
+                ${resetUrl}\n
+                If you did not request this, please ignore this email and your password will remain unchanged.\n 
+                ${email}` 
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Error sending password reset email:', error);
+                    res.status(500).json({ message: "Failed to send password reset email" });
+                } else {
+                    console.log('Password reset email sent:', info.response);
+                    res.status(200).json({ message: "Password reset email sent if the user exists" });
+                }
+            });
+        }
+    });
+});
+
+
+app.post('/resetpassword', (req, res) => {
+    const { email, password } = req.body;
+
+    const updatePasswordQuery = "UPDATE users SET Password = ? WHERE Email = ?";
+    
+    db.query(updatePasswordQuery, [password, email], (err, result) => {
+      if (err) {
+        console.error("Error updating password:", err);
+        return res.status(500).json({ message: "Internal Server Error" });
+      }
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Email not found" });
+      }
+  
+      console.log("Password updated successfully");
+      res.status(200).json({ message: "Password updated successfully" });
+    });
+  });
+  
+  
+  
+  
 
 
 const PORT = process.env.PORT || 5000;

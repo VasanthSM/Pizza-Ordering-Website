@@ -24,7 +24,7 @@ const LogIn = () => {
                 navigate('/');
             }
         } catch (error) {
-            alert(error);
+            alert("Password and userMailid does not match, Try again later");
         }
     };
 
@@ -60,7 +60,8 @@ const LogIn = () => {
                         </label>
                     </div>
                     <div className='account'>
-                        <p>Create a new Account? <Link className='Clicking' to='/signup'>Click here</Link></p>
+                        <p>Create a new Account? <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> <Link className='Clicking' to='/signup'>Click here</Link></p>
+
                     </div>
                 </form>
             </div>

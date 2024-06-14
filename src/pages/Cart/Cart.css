@@ -79,3 +79,12 @@
     font-size: 18px;
     border-radius: 5px;
 }
+
+
+@media (max-width:1024px) {
+    .cart{
+        position: absolute;
+        right:30px;
+        width: 300px;
+    }
+}

@@ -94,3 +94,18 @@
     padding: 10px;
     font-size: 18px;
 }
+
+@media (max-width:1024px) {
+    .Signup{
+        position: relative;
+        left: 300px;
+        width: 40vw;
+    }
+}
+@media (max-width:425px) {
+    .Signup{
+        position: relative;
+        left: 30px;
+        width: 85vw;
+    }
+}

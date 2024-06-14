@@ -151,7 +151,10 @@
 }
 
 
-@media (max-width:1050px) {
+@media (max-width:1024px) {
+    .Navbar{
+        width: 970px;
+    }
     .Navbar .Logo{
         width: 140px;
     }    
@@ -167,6 +170,16 @@
     }
     .Navbar-right button{
         padding: 8px 25px;
+    }
+    .Navbar-search input{
+        padding: 3px;
+        width: 100px;
+    }
+    .Navbar-profile{
+        cursor: pointer;
+    }
+    .Logo{
+        height: 90px;
     }
 }
 
@@ -191,8 +204,33 @@
 }
 
 @media (max-width:768px) {
-    .Navbar-Menu{
+    .Navbar-Menu ul{
+        display: flex;
+        gap: 5px;
+        margin-right: 10px;
+    }
+    .Navbar{
+        width: 726px;
+    }
+    .Navbar-Menu #specials,#contactus{
         display: none;
+    }
+    .Navbar-signin-link{
+        background-color:white;
+        font-size: 17px;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 8px 10px;
+        width: max-content;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .navbar-login-button{
+        margin-right: 10px;
+    }
+    .Navbar-search input{
+        padding: 2px;
+        width: 100px;
     }
 }
 
@@ -200,7 +238,10 @@
     .Navbar img{
         display: flex;
         width: 70px;
-        height: 100px;
+        height: 80px;
+    }
+    .Navbar{
+        width: 400px;
     }
     .Navbar-signin-link{
         margin-right: 20px;
@@ -208,6 +249,9 @@
         border-radius: 5px;
     }
     .navbar-login-button{
+        display: none;
+    }
+    .Navbar-Menu{
         display: none;
     }
 }

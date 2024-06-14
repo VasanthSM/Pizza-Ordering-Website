@@ -41,15 +41,15 @@ const PlaceOrder = () => {
     };
     try {
       const response = await axios.post('http://localhost:5000/payment', body, { headers });
-      console.log(response);
       await handlePlaceOrder(token, response.data);
     } catch (err) {
-      console.error('Payment Error:', err);
       alert('Payment Error: ' + err.message);
     }
   };
 
   const handlePlaceOrder = async (paymentData) => {
+    toast.success("Order Placed SuccessFully")
+    navigate('/');
     let orderDetails = {
       userDetails,
       paymentData,
@@ -59,15 +59,14 @@ const PlaceOrder = () => {
     };
     const combinedData = JSON.stringify(orderDetails);
     try {
-      console.log('Placing order:', combinedData);
       const response = await axios.post('http://localhost:5000/order', combinedData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
       if(response.data.status===200){
-        toast.success("Order Placed Successfully");
-        navigate('/');
+        console.log("Order Placed")
+        
       }else{
         toast.error("UnSuccessful Order Placed, Try Again")
       }

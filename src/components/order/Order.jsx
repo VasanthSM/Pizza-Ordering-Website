@@ -9,10 +9,9 @@ const Order = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userEmailid = localStorage.getItem('Email:');
-    console.log(userEmailid)
-    if (userEmailid) {
-      setUserEmail(userEmailid);
+    const userEmailId = localStorage.getItem('Email:');
+    if (userEmailId) {
+      setUserEmail(userEmailId);
     } else {
       console.error('User email not found in localStorage');
     }
@@ -24,7 +23,6 @@ const Order = () => {
         try {
           const response = await axios.get(`http://localhost:5000/order?email=${userEmail}`);
           setOrders(response.data);
-          console.log("Fetchorders:",response.data)
         } catch (error) {
           console.error('Error fetching orders:', error);
         }
@@ -33,22 +31,47 @@ const Order = () => {
     }
   }, [userEmail]);
 
-  const handleReorder = async (order) => {
-    try {
-      const { total_amount, cartItems } = order;
-      const response = await axios.post("http://localhost:5000/reorder", { totalAmount: total_amount, cartItems: cartItems });
-      if (response.status === 200) {
-        order.total_amount = response.data.newTotalAmount;
+  const handleReorder = (order) => {
+    navigate(`/order`, { state: { totalAmount: order.total_amount } });
+  };
 
-        setOrders([...orders]);
-      }
-      localStorage.setItem('reorderData', JSON.stringify({ totalAmount: order.total_amount, cartItems: cartItems }));
-      navigate('/order');
-    } catch (error) {
-      console.error('Error reordering:', error);
+  const renderPizzaDetails = (pizza) => {
+    if (pizza.name) {
+      return (
+        <>
+          <strong>Base:</strong> {pizza.name.base}, 
+          <strong>Size:</strong> {pizza.name.size}, 
+          <strong>Toppings:</strong> {pizza.name.toppings}, 
+        </>
+      );
+    } else {
+      const custom = pizza.customizations[0];
+      return (
+        <>
+          <strong>Base:</strong> {custom.base}, 
+          <strong>Size:</strong> {custom.size}, 
+          <strong>Toppings:</strong> {custom.toppings}, 
+        </>
+      );
     }
   };
-  
+
+  const getOrderStatus = (order) => {
+    const orderTime = new Date(order.order_time);
+    const currentTime = new Date();
+    const elapsedMinutes = (currentTime - orderTime) / (1000 * 60); 
+
+    if (elapsedMinutes <= 15) {
+      return 'Preparing';
+    } else if (elapsedMinutes > 15 && elapsedMinutes <= 25) {
+      return 'Out of Delivery';
+    } else if (elapsedMinutes > 25 && elapsedMinutes <= 60) {
+      return 'Delivered';
+    } else {
+      return 'Unknown'; 
+    }
+  };
+
   return (
     <div className='order'>
       <h1>Previous Orders</h1>
@@ -56,21 +79,18 @@ const Order = () => {
         order.email === userEmail && (
           <div key={order.id} className="order-details">
             <p><strong>Order Id: {order.id}</strong></p>
-            <p><strong>Emailid: {order.email}</strong></p>
+            <p><strong>Email: {order.email}</strong></p>
             <p><strong>Order Time:</strong> {new Date(order.order_time).toLocaleString()}</p>
             <p><strong>Total Amount:</strong> ${order.total_amount}</p>
-            <p><strong>Ordered-Items:</strong></p>
+            <p><strong>Ordered Items:</strong></p>
             <ul className='OrderedItems'>
-              {Array.isArray(JSON.parse(order.cartItems)) && JSON.parse(order.cartItems).map((item, i) => (
+              {JSON.parse(order.cartItems).map((item, i) => (
                 <li key={i}>
-                  ID: {Object.keys(item).join(', ')}
+                  <strong>ID:</strong> {Object.keys(item).join(', ')}
                   <ul className='OrderPizzaList'>
                     {Object.values(item).map((pizza, j) => (
                       <li key={j} className='idKey'>
-                        <strong>Name:</strong> {Array.isArray(pizza.customizations) ? pizza.customizations.join(', ') : "Customized Pizza"},
-                        {pizza.name && pizza.name.base && <><strong>Base:</strong> {pizza.name.base}, </>}
-                        {pizza.name && pizza.name.size && <><strong>Size:</strong> {pizza.name.size}, </>}
-                        {pizza.name && pizza.name.toppings && <><strong>Toppings:</strong> {pizza.name.toppings}, </>}
+                        {renderPizzaDetails(pizza)}
                         <strong>Price:</strong> ${pizza.price}, 
                         <strong>Quantity:</strong> {pizza.quantity}
                       </li>
@@ -79,7 +99,17 @@ const Order = () => {
                 </li>
               ))}
             </ul>
-            <button className='PlaceOrder' onClick={() => handleReorder(order)}>Re-Order</button>
+            <div>
+              <button
+                className={`PlaceOrder ${order.total_amount}`}
+                onClick={() => handleReorder(order)}
+              >
+                Re-Order
+              </button>
+              <div className='orderStatus'>
+                <p>{getOrderStatus(order)}</p>
+              </div>
+            </div>
             <hr className='Line' />
           </div>
         )

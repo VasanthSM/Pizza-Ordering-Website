@@ -1,0 +1,28 @@
+.about{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.about h1{
+    font-size: 28px;
+    font-weight: 400;
+}
+.about p{
+    font-size: 23px;
+    text-align: justify;
+    line-height: 35px;
+}
+.Contact{
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+}
+.Contact ul{
+    margin-top: 10px;
+    word-spacing: 5px;
+    list-style: none;
+    line-height: 35px;
+    margin-left: 20px;
+    font-size: 20px;
+
+}

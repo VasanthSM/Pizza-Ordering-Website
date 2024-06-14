@@ -69,6 +69,7 @@ margin: 0 10px;
     border-radius: 10px;
     padding: 5px 10px;
     width: max-content;
+    height: max-content;
     color: black;
     gap: 30px;
     cursor: pointer;
@@ -87,15 +88,10 @@ margin: 0 10px;
 .select{
     font-size: 18px;
 }
-
-.fooditem-options{
-    display:grid;
-    grid-template-columns: repeat(2,2fr);
-}
 .fooditem-id{
-    margin-left: 140px;
+   margin-top: 20px;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 @media (max-width:425px) {
