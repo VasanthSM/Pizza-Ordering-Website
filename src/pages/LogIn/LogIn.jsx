@@ -60,8 +60,8 @@ const LogIn = () => {
                         </label>
                     </div>
                     <div className='account'>
-                        <p>Create a new Account? <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> <Link className='Clicking' to='/signup'>Click here</Link></p>
-
+                        <p>Create a new Account? <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> 
+                         <Link className='Clicking' to='/signup'>Click here</Link></p>
                     </div>
                 </form>
             </div>

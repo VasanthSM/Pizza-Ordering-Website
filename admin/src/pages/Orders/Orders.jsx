@@ -51,6 +51,21 @@ const Orders = () => {
       );
     }
   };
+  const getOrderStatus = (order) => {
+    const orderTime = new Date(order.order_time);
+    const currentTime = new Date();
+    const elapsedMinutes = (currentTime - orderTime) / (1000 * 60); 
+
+    if (elapsedMinutes <= 15) {
+      return 'Preparing';
+    } else if (elapsedMinutes > 15 && elapsedMinutes <= 25) {
+      return 'Out of Delivery';
+    } else if (elapsedMinutes > 25 && elapsedMinutes <= 60) {
+      return 'Delivered';
+    } else {
+      return 'Unknown'; 
+    }
+  };
 
   return (
     <div className='order'>
@@ -80,6 +95,9 @@ const Orders = () => {
                 </li>
               ))}
             </ul>
+            <div className='orderStatus'>
+                <p>{getOrderStatus(order)}</p>
+            </div>
           <hr className='Line' />
         </div>
       ))}

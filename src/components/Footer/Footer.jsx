@@ -21,7 +21,6 @@ const Footer = () => {
                 <FaFacebook className='icons2'  />
                 <FaWhatsapp className='icons3' />
             </div>
-
         </div>
         <div className="footer-content-center">
             <h2>Company</h2>

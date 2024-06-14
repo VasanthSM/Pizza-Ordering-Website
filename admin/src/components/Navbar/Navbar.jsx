@@ -8,7 +8,6 @@ const Navbar = () => {
     <div className='navbar'>
         <img className='logo' src={assets.logo} alt="" />
         <CgProfile className='profile' />
-
     </div>
   )
 }

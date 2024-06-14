@@ -31,9 +31,17 @@ const Order = () => {
     }
   }, [userEmail]);
 
-  const handleReorder = (order) => {
-    navigate(`/order`, { state: { totalAmount: order.total_amount } });
+  const handleReorder = async (order) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/order/${order.id}`);
+      const orderDetails = response.data;
+      console.log(orderDetails)
+      navigate(`/order`, { state: { userDetails: orderDetails.userDetails, totalAmount: orderDetails.totalAmount } });
+    } catch (error) {
+      console.error('Error fetching order details for reorder:', error);
+    }
   };
+  
 
   const renderPizzaDetails = (pizza) => {
     if (pizza.name) {
@@ -59,16 +67,16 @@ const Order = () => {
   const getOrderStatus = (order) => {
     const orderTime = new Date(order.order_time);
     const currentTime = new Date();
-    const elapsedMinutes = (currentTime - orderTime) / (1000 * 60); 
+    const updatedtime = (currentTime - orderTime) / (1000 * 60); 
 
-    if (elapsedMinutes <= 15) {
+    if (updatedtime <= 15) {
       return 'Preparing';
-    } else if (elapsedMinutes > 15 && elapsedMinutes <= 25) {
-      return 'Out of Delivery';
-    } else if (elapsedMinutes > 25 && elapsedMinutes <= 60) {
+    } else if (updatedtime > 15 && updatedtime <= 25) {
+      return 'Out for Delivery';
+    } else if (updatedtime > 25 && updatedtime <= 50) {
       return 'Delivered';
     } else {
-      return 'Unknown'; 
+      return 'Delivered at Customer'; 
     }
   };
 

@@ -31,12 +31,7 @@ function ForgotPassword() {
                 <button type="submit">Send</button>
             </form>
             {message && <p>{message}</p>}
-
-
-
-            
         </div>
     );
 }
-
 export default ForgotPassword;

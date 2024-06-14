@@ -72,7 +72,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
-// POST route to handle user login
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
@@ -108,7 +108,27 @@ app.get('/login', (req, res) => {
         }
     });
 });
-
+app.get('/order/:orderId', (req, res) => {
+    const orderId = req.params.orderId;
+    const sql = 'SELECT * FROM orders WHERE id = ?';
+  
+    db.query(sql, [orderId], (err, result) => {
+      if (err) {
+        console.error('Error fetching order details:', err);
+        res.status(500).json({ error: 'Internal server error' });
+      } else {
+        if (result.length > 0) {
+          const order = result[0];
+          res.json({
+            userDetails: JSON.parse(order.userDetails),
+            totalAmount: order.total_amount
+          });
+        } else {
+          res.status(404).json({ error: 'Order not found' });
+        }
+      }
+    });
+  });
 
 app.post('/data', upload.single('image'), (req, res) => {
     const { name, description, price, category } = req.body;
@@ -325,11 +345,6 @@ app.post('/resetpassword', (req, res) => {
       res.status(200).json({ message: "Password updated successfully" });
     });
   });
-  
-  
-  
-  
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
