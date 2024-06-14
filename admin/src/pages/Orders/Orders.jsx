@@ -63,7 +63,7 @@ const Orders = () => {
     } else if (elapsedMinutes > 25 && elapsedMinutes <= 60) {
       return 'Delivered';
     } else {
-      return 'Unknown'; 
+      return 'Delivered to Customer'; 
     }
   };
 
