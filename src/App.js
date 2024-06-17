@@ -13,6 +13,7 @@ import Order from './components/order/Order';
 import AboutUS from './components/AboutUs/AboutUS';
 import ForgotPassword from './pages/LogIn/ForgotPassword';
 import ResetPassword from './pages/LogIn/ResetPassword';
+import PageNotFound from './components/PageNotFound';
 
 const App = () => {const location = useLocation()
   
@@ -36,6 +37,7 @@ const App = () => {const location = useLocation()
         <Route path='/about' element={<AboutUS/>}/>
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
         <Route path= "/resetpassword/:token" element={<ResetPassword/>}/>
+        <Route path= "/*" element={<PageNotFound/>}/>
       </Routes>
     </div>
     </>

@@ -50,8 +50,8 @@
     outline: none;
     border: 1px solid #c9c9c9;
     border-radius: 4px;
-    padding: 10px;
-    font-size: 18px;
+    padding: 14px;
+    font-size: 20px;
 }
 
 .login-container button{
@@ -59,9 +59,10 @@
     padding: 10px;
     border-radius: 4px;
     color: black;
+    font-weight: 500;
     background-color: beige;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
 }
 .text-danger{
     color: rgba(238, 105, 10, 0.873);
@@ -70,7 +71,7 @@
 
 .Clicking{
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 22px;
     color: rgb(255, 176, 7);
 }
 .login-checkbox{
@@ -93,7 +94,14 @@
     color: white;
     font-size: 16px;
 }
-
+.password-toggle-icon1{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    color: rgb(0, 0, 0);
+    left: 72%;
+    margin-top: 8.5px;
+}
 @media (max-width:1024px) {
     .login{
         position: relative;

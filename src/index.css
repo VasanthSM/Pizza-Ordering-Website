@@ -132,3 +132,7 @@ input::placeholder{
     font-size: 20px;
     margin-top: 30px;
 }
+.pageNotFound{
+    text-align: center;
+    margin-top: 15%;
+}

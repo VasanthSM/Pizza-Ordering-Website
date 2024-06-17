@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LogIn.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';  // Import eye icons
 
 const LogIn = () => {
     const navigate = useNavigate();
@@ -9,9 +10,14 @@ const LogIn = () => {
         email: '',
         password: ''
     });
+    const [showPassword, setShowPassword] = useState(false);  // State for toggling password visibility
 
     const handleChange = (e) => {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(prevShowPassword => !prevShowPassword);
     };
 
     const handleSubmit = async (e) => {
@@ -19,7 +25,7 @@ const LogIn = () => {
         try {
             const res = await axios.post('http://localhost:5000/login', values);
             if (res.status === 200) {
-                localStorage.setItem("Email:",values.email)
+                localStorage.setItem("Email:", values.email);
                 document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
                 navigate('/');
             }
@@ -44,15 +50,20 @@ const LogIn = () => {
                             placeholder='Enter your Email' 
                             value={values.email} 
                         />
-                        <input 
-                            onChange={handleChange} 
-                            name='password' 
-                            type="password" 
-                            placeholder='Enter your Password' 
-                            value={values.password} 
-                        />
+                        <div className="login-input">
+                            <input 
+                                onChange={handleChange} 
+                                name='password' 
+                                type={showPassword ? "text" : "password"} 
+                                placeholder='Enter your Password' 
+                                value={values.password} 
+                            />
+                            <span className="password-toggle-icon1" onClick={handleTogglePasswordVisibility}>
+                                {showPassword ? <FaEyeSlash className='password-toggle-icon1' /> : <FaEye className='password-toggle-icon1' />}
+                            </span>
+                        </div>
                     </div>
-                    <button type='submit'>Login</button>
+                    <button className='loginbutton' type='submit'>Login</button>
                     <div className='login-checkbox'>
                         <input className='checkbox' type="checkbox" required />
                         <label className='Policy'>
@@ -60,7 +71,7 @@ const LogIn = () => {
                         </label>
                     </div>
                     <div className='account'>
-                        <p>Create a new Account? <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> 
+                        <p><Link to='/signup'>Create a new Account?</Link> <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> 
                          <Link className='Clicking' to='/signup'>Click here</Link></p>
                     </div>
                 </form>

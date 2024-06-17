@@ -70,7 +70,7 @@
     color: black;
     background-color: beige;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 22px;
 }
 /* .Clicking{
     margin-left: 10px;
@@ -93,6 +93,15 @@
     border-radius: 4px;
     padding: 10px;
     font-size: 18px;
+}
+.password-toggle-icon{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    color: rgb(0, 0, 0);
+    left: 72.5%;
+    margin-top: 5.5px;
+    top: 46%;
 }
 
 @media (max-width:1024px) {

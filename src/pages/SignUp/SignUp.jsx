@@ -3,15 +3,21 @@ import './SignUp.css';
 import axios from 'axios';
 import validation from './SignupValidation';
 import { useNavigate, Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const SignUp = () => {
     const navigate = useNavigate();
-    const [err, setErr] = useState();
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
     const [values, setValues] = useState({
         name: '',
         email: '',
         password: '',
     });
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(prevShowPassword => !prevShowPassword);
+    };
 
     const handleChange = (e) => {
         setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,17 +25,21 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErr(validation(values));
-        try {
-            const res = await axios.post('http://localhost:5000/signup', values);
-            if (res.status === 200) {
-                localStorage.setItem("Email", values.email);
-                document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`;
+        const validationErrors = validation(values);
+        setErrors(validationErrors);
 
-                navigate('/');
+        if (Object.keys(validationErrors).length === 0) {
+            try {
+                const res = await axios.post('http://localhost:5000/signup', values);
+                if (res.status === 200) {
+                    localStorage.setItem("Email", values.email);
+                    document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`;
+
+                    navigate('/');
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
     };
 
@@ -50,6 +60,7 @@ const SignUp = () => {
                             onChange={handleChange}
                             required
                         />
+                        {errors.name && <p className="error">{errors.name}</p>}
                         <input
                             type="email"
                             id="email"
@@ -59,15 +70,22 @@ const SignUp = () => {
                             onChange={handleChange}
                             required
                         />
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your Password.."
-                            value={values.password}
-                            onChange={handleChange}
-                            required
-                        />
+                        {errors.email && <p className="error">{errors.email}</p>}
+                        <div className="signup-input">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                name="password"
+                                placeholder="Enter your Password.."
+                                value={values.password}
+                                onChange={handleChange}
+                                required
+                            />
+                            <span className="password-toggle-icon" onClick={handleTogglePasswordVisibility}>
+                                {showPassword ? <FaEyeSlash className='password-toggle-icon' /> : <FaEye className='password-toggle-icon' />}
+                            </span>
+                        </div>
+                        {errors.password && <p className="error">{errors.password}</p>}
                     </div>
                     <div className="checkbox-content">
                         <input className="checkbox" type="checkbox" required />
