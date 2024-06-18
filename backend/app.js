@@ -97,7 +97,7 @@ app.post('/login', (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    const sql = "SELECT * FROM users";
+    const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
         if (err) {
@@ -121,7 +121,8 @@ app.get('/order/:orderId', (req, res) => {
           const order = result[0];
           res.json({
             userDetails: JSON.parse(order.userDetails),
-            totalAmount: order.total_amount
+            totalAmount: order.total_amount,
+            cartItems: JSON.parse(order.cartItems)
           });
         } else {
           res.status(404).json({ error: 'Order not found' });
@@ -345,7 +346,6 @@ app.post('/resetpassword', (req, res) => {
       res.status(200).json({ message: "Password updated successfully" });
     });
   });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

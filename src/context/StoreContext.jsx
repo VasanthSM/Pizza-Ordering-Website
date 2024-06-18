@@ -11,6 +11,7 @@ const StoreContextProvider = (props) => {
   const addToCart = (itemId, price, customization, name = null) => {
     setCartItems((prev) => {
       const existingItem = prev[itemId] || { quantity: 0, price: 0, customizations: [], name: null };
+      
       return {
         ...prev,
         [itemId]: {
@@ -20,6 +21,7 @@ const StoreContextProvider = (props) => {
           name: name || existingItem.name, 
         },
       };
+      
     });
   };
 
@@ -66,6 +68,10 @@ const StoreContextProvider = (props) => {
     setFoodList(response.data);
   };
 
+  const reorder = (previousCartItems) => {
+    setCartItems(previousCartItems);
+  };
+
   useEffect(() => {
     async function loadData() {
       await fetchFoodList();
@@ -81,6 +87,7 @@ const StoreContextProvider = (props) => {
     removeCart,
     getTotalAmount,
     filterFoodList,
+    reorder, 
     url,
   };
 
