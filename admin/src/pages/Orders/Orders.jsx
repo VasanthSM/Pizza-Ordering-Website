@@ -35,18 +35,19 @@ const Orders = () => {
     if (pizza.name) {
       return (
         <>
-          <strong>Base:</strong> {pizza.name.base}, 
-          <strong>Size:</strong> {pizza.name.size}, 
-          <strong>Toppings:</strong> {pizza.name.toppings}, 
+          <strong>Name: </strong>{pizza.customizations}, 
+          <t/> <strong>Base:</strong> {pizza.name.base}, 
+          <t/> <strong>Size:</strong> {pizza.name.size}, 
+          <t/> <strong>Toppings:</strong> {pizza.name.toppings}, 
         </>
       );
     } else {
       const custom = pizza.customizations[0];
       return (
         <>
-          <strong>Base:</strong> {custom.base}, 
-          <strong>Size:</strong> {custom.size}, 
-          <strong>Toppings:</strong> {custom.toppings}, 
+          <t/> <strong>Base:</strong> {custom.base}, 
+          <t/> <strong>Size:</strong> {custom.size}, 
+          <t/> <strong>Toppings:</strong> {custom.toppings}, 
         </>
       );
     }
@@ -54,13 +55,13 @@ const Orders = () => {
   const getOrderStatus = (order) => {
     const orderTime = new Date(order.order_time);
     const currentTime = new Date();
-    const elapsedMinutes = (currentTime - orderTime) / (1000 * 60); 
+    const updatedtime = (currentTime - orderTime) / (1000 * 60); 
 
-    if (elapsedMinutes <= 15) {
+    if (updatedtime <= 15) {
       return 'Preparing';
-    } else if (elapsedMinutes > 15 && elapsedMinutes <= 25) {
+    } else if (updatedtime > 15) {
       return 'Out of Delivery';
-    } else if (elapsedMinutes > 25 && elapsedMinutes <= 60) {
+    } else if (updatedtime >= 25 && updatedtime <= 45) {
       return 'Delivered';
     } else {
       return 'Delivered to Customer'; 
@@ -73,12 +74,12 @@ const Orders = () => {
       {orders.map((order) => (
         <div key={order.id} className="order-details">
           <p><strong>OrderId: {order.id}</strong></p>
-          <p><strong>Username:</strong> {order.first_name} {order.last_name}</p>
-          <p><strong>Order Time:</strong> {new Date(order.order_time).toLocaleString()}</p>
-          <p><strong>Total Amount:</strong> ${order.total_amount}</p>
-          <p><strong>Address:</strong> {order.street}, {order.city}, {order.district}, {order.state}, {order.zip_code}</p>
-          <p><strong>Mobile Number:</strong> {order.mobile_number}</p>
-          <p><strong>Ordered-Items:</strong></p>
+          <p><strong>Username: </strong> {order.first_name}.{order.last_name}</p>
+          <p><strong>Order Time: </strong> {new Date(order.order_time).toLocaleString()}</p>
+          <p><strong>Total Amount: </strong> ${order.total_amount}</p>
+          <p><strong>Address: </strong> {order.street}, {order.city}, {order.district}, {order.state}, {order.zip_code}</p>
+          <p><strong>Mobile Number: </strong> {order.mobile_number}</p>
+          <p><strong>Ordered-Items: </strong></p>
           <ul className='OrderedItems'>
               {JSON.parse(order.cartItems).map((item, i) => (
                 <li key={i}>
@@ -87,8 +88,8 @@ const Orders = () => {
                     {Object.values(item).map((pizza, j) => (
                       <li key={j} className='idKey'>
                         {renderPizzaDetails(pizza)}
-                        <strong>Price:</strong> ${pizza.price}, 
-                        <strong>Quantity:</strong> {pizza.quantity}
+                        <strong>Price: </strong> ${pizza.price}, 
+                        <strong>Quantity: </strong> {pizza.quantity}
                       </li>
                     ))}
                   </ul>

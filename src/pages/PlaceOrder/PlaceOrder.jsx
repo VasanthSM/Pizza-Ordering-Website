@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
   const { getTotalAmount, cartItems } = useContext(StoreContext);
+  console.log(cartItems)
   const navigate = useNavigate();
   const location = useLocation();
   const { userDetails: initialUserDetails, totalAmount: initialTotalAmount } = location.state || {};
@@ -30,6 +31,8 @@ const PlaceOrder = () => {
     productBy: "PizzaMan"
   });
 
+  const [itemNames, setItemNames] = useState([]);
+
   useEffect(() => {
     if (initialTotalAmount) {
       setProduct({
@@ -37,6 +40,17 @@ const PlaceOrder = () => {
         price: initialTotalAmount * 100
       });
     }
+    
+    axios.get('http://localhost:5000/data')
+      .then(response => {
+        const items = response.data; 
+        const names = items.map(item => item.name);
+        setItemNames(names);
+      })
+      .catch(error => {
+        console.error('Error fetching item names:', error);
+      });
+
   }, [initialTotalAmount]);
 
   const handleInputChange = (e) => {
@@ -54,7 +68,7 @@ const PlaceOrder = () => {
     };
     try {
       const response = await axios.post('http://localhost:5000/payment', body, { headers });
-      await handlePlaceOrder(token, response.data);
+      await handlePlaceOrder(response.data);
     } catch (err) {
       alert('Payment Error: ' + err.message);
     }
@@ -63,21 +77,24 @@ const PlaceOrder = () => {
   const handlePlaceOrder = async (paymentData) => {
     toast.success("Order Placed Successfully");
     navigate('/');
+    
     let orderDetails = {
       userDetails,
       paymentData,
       totalAmount: initialTotalAmount || getTotalAmount() + 10,
       cartItems,
+      itemNames, 
       orderTime: new Date().toISOString()
     };
-    const combinedData = JSON.stringify(orderDetails);
+    
     try {
-      const response = await axios.post('http://localhost:5000/order', combinedData, {
+      const response = await axios.post('http://localhost:5000/order', orderDetails, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      if (response.data.status === 200) {
+      
+      if (response.status === 201) {
         console.log("Order Placed");
       } else {
         toast.error("Unsuccessful Order Placed, Try Again");

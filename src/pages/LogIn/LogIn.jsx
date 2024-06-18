@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './LogIn.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';  // Import eye icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { toast } from 'react-toastify';
 
 const LogIn = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const LogIn = () => {
         email: '',
         password: ''
     });
-    const [showPassword, setShowPassword] = useState(false);  // State for toggling password visibility
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,10 +28,11 @@ const LogIn = () => {
             if (res.status === 200) {
                 localStorage.setItem("Email:", values.email);
                 document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 
+                toast.success("Login Successfully")
                 navigate('/');
             }
         } catch (error) {
-            alert("Password and userMailid does not match, Try again later");
+            toast.error("Password and userMailid does not match, Try again later");
         }
     };
 
@@ -72,7 +74,7 @@ const LogIn = () => {
                     </div>
                     <div className='account'>
                         <p><Link to='/signup'>Create a new Account?</Link> <br /> <br /> <Link to='/forgot-password'>Forgot Password?</Link> 
-                         <Link className='Clicking' to='/signup'>Click here</Link></p>
+                         <Link className='Clicking' to='/forgot-password'>Click here</Link></p>
                     </div>
                 </form>
             </div>

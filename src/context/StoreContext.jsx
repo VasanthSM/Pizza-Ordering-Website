@@ -11,17 +11,16 @@ const StoreContextProvider = (props) => {
   const addToCart = (itemId, price, customization, name = null) => {
     setCartItems((prev) => {
       const existingItem = prev[itemId] || { quantity: 0, price: 0, customizations: [], name: null };
-      
+
       return {
         ...prev,
         [itemId]: {
           quantity: existingItem.quantity + 1,
           price: price || existingItem.price,
           customizations: customization ? [...existingItem.customizations, customization] : existingItem.customizations,
-          name: name || existingItem.name, 
+          name: name || existingItem.name,
         },
       };
-      
     });
   };
 
@@ -64,8 +63,12 @@ const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get("http://localhost:5000/list");
-    setFoodList(response.data);
+    try {
+      const response = await axios.get(`${url}/list`);
+      setFoodList(response.data);
+    } catch (error) {
+      console.error('Error fetching food list:', error);
+    }
   };
 
   const reorder = (previousCartItems) => {
@@ -87,7 +90,7 @@ const StoreContextProvider = (props) => {
     removeCart,
     getTotalAmount,
     filterFoodList,
-    reorder, 
+    reorder,
     url,
   };
 

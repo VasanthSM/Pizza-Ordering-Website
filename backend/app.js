@@ -215,11 +215,14 @@ app.post("/payment", async (req, res) => {
     }
 });
   
-
 app.post('/order', (req, res) => {
-    let { userDetails, paymentData, totalAmount, cartItems } = req.body;
+    let { userDetails, paymentData, totalAmount, cartItems, itemNames } = req.body;
+
     if (!Array.isArray(cartItems)) {
         cartItems = [cartItems]; 
+    }
+    if (!Array.isArray(itemNames)) {
+        itemNames = [itemNames]; 
     }
 
     const order = {
@@ -235,6 +238,7 @@ app.post('/order', (req, res) => {
         total_amount: totalAmount,
         userDetails: JSON.stringify(userDetails),
         cartItems: JSON.stringify(cartItems),
+        itemNames: JSON.stringify(itemNames), 
         payment_data: JSON.stringify(paymentData)
     };
     
@@ -245,9 +249,10 @@ app.post('/order', (req, res) => {
             return res.status(500).json({ error: 'Failed to place order' });
         }
         const orderId = result.insertId;
-        
+        res.status(201).json({ orderId: orderId }); // Respond with orderId
     });
 });
+
 
 
 app.get('/order', (req, res) => {
@@ -275,7 +280,6 @@ app.get('/users', (req, res) => {
     });
 });
 
-
 const generateToken = () => {
     return crypto.randomBytes(20).toString('hex');
 };
@@ -301,7 +305,7 @@ app.post('/forgotpassword', (req, res,token) => {
             if (result.affectedRows === 0) {
                 return res.status(200).json({ message: "Password reset email sent if the user exists" });
             }
-            const resetUrl = `http://localhost:3000/resetpassword/${token}`;
+            const resetUrl = `http://localhost:3000/resetpassword`;
             const mailOptions = {
                 to: email,
                 from: 'vasanthsubburaj24@gmail.com',

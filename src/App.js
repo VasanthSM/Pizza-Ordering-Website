@@ -36,7 +36,7 @@ const App = () => {const location = useLocation()
         <Route path='/orderlist' element={<Order />} />
         <Route path='/about' element={<AboutUS/>}/>
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
-        <Route path= "/resetpassword/:token" element={<ResetPassword/>}/>
+        <Route path= "/resetpassword" element={<ResetPassword/>}/>
         <Route path= "/*" element={<PageNotFound/>}/>
       </Routes>
     </div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import validation from './SignupValidation';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -34,10 +35,14 @@ const SignUp = () => {
                 if (res.status === 200) {
                     localStorage.setItem("Email", values.email);
                     document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`;
-
+                    toast.success("Registered Successfully")
                     navigate('/');
+                }else{
+                    toast.error("Try again With new Emailid and Password")
+                    alert("Try again With new Emailid and Password")
                 }
             } catch (error) {
+                
                 console.error(error);
             }
         }
