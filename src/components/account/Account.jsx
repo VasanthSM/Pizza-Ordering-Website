@@ -1,38 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Account.css';
-import AccountImage from "../../assets/depositphotos_17680877-stock-illustration-funny-pizza-delivery-boy-riding.jpg";
 
 const Account = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userEmailid = localStorage.getItem('Email:');
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const response = await axios.get('http://localhost:5000/users');
-      setUsers(response.data)
+      try {
+        const response = await axios.get('http://localhost:5000/users');
+        setUsers(response.data);
+      } catch (err) {
+        setError('Failed to fetch user details');
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchUserDetails();
-  }, []);
+
+    if (userEmailid) {
+      fetchUserDetails();
+    } else {
+      setLoading(false);
+    }
+  }, [userEmailid]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!users.length) {
     return <p>No user details found</p>;
   }
 
+  const user = users.find(user => user.email === userEmailid);
+
   return (
     <div className="account">
       <h1>Account Details</h1>
       <div className="user-details">
-        {users.map((user) => (
-          (user.email === userEmailid ) &&
+        {user ? (
           <div key={user.id} className="user-card">
             <p><strong>Name:</strong> {user.name}</p>
             <p><strong>Email:</strong> {user.email}</p>
           </div>
-        ))}
-        {/* <div className="image-container">
-          <img src={AccountImage} alt="" className="account-image" />
-        </div> */}
+        ) : (
+          <p>No user details found for the logged-in user</p>
+        )}
       </div>
     </div>
   );

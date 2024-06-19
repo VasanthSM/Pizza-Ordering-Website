@@ -7,16 +7,18 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const app = express();
+const dotenv = require('dotenv')
 const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
 
 app.use(cors());
 app.use(express.json());
+dotenv.config();
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "pizza",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
 });
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -29,7 +31,7 @@ db.connect((err) => {
     }
 });
 
-const jwtSecret = "mySecretKey123";
+const jwtSecret = process.env.JWT_SECRET;
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -50,7 +52,6 @@ app.post('/signup', (req, res) => {
 
     db.query(checkUserQuery, [email], (err, results) => {
         if (err) {
-            console.error(err);
             res.status(500).json({ message: "Internal Server Error" });
         } else {
             if (results.length > 0) {
@@ -58,12 +59,10 @@ app.post('/signup', (req, res) => {
             } else {
                 db.query(insertUserQuery, [name, email, password], (err) => {
                     if (err) {
-                        console.error(err);
                         res.status(500).json({ message: "Internal Server Error" });
                     } else {
-                        console.log("User registered successfully");
                         const token = jwt.sign({ email: email }, jwtSecret, { expiresIn: '2d' });
-                        res.cookie('token', token, { httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000 }); // 2 days
+                        res.cookie('token', token, { httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000 }); 
                         res.status(200).json({ message: "User registered successfully", token: token });
                     }
                 });
@@ -71,7 +70,6 @@ app.post('/signup', (req, res) => {
         }
     });
 });
-
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -94,7 +92,6 @@ app.post('/login', (req, res) => {
         }
     });
 });
-
 
 app.get('/login', (req, res) => {
     const sql = "SELECT * FROM data";
@@ -225,7 +222,7 @@ app.post('/order', (req, res) => {
         itemNames = [itemNames]; 
     }
 
-    const order = {
+    const userOrder = {
         first_name: userDetails.firstName,
         last_name: userDetails.lastName,
         email: userDetails.email,
@@ -235,25 +232,62 @@ app.post('/order', (req, res) => {
         state: userDetails.state,
         zip_code: userDetails.zipCode,
         mobile_number: userDetails.mobileNumber,
-        total_amount: totalAmount,
-        userDetails: JSON.stringify(userDetails),
-        cartItems: JSON.stringify(cartItems),
-        itemNames: JSON.stringify(itemNames), 
-        payment_data: JSON.stringify(paymentData)
+        userDetails: JSON.stringify(userDetails)
     };
-    
-    const orderQuery = 'INSERT INTO orders SET ?';
-    db.query(orderQuery, order, (err, result) => {
+
+    const userOrderQuery = 'INSERT INTO UserOrderDetails SET ?';
+    db.query(userOrderQuery, userOrder, (err, userResult) => {
         if (err) {
-            console.error('Error placing order:', err);
-            return res.status(500).json({ error: 'Failed to place order' });
+            console.error('Error inserting user order details:', err);
+            return res.status(500).json({ error: 'Failed to place user order details' });
         }
-        const orderId = result.insertId;
-        res.status(201).json({ orderId: orderId }); // Respond with orderId
+        const userOrderId = userResult.insertId;
+
+        const orderDetails = {
+            total_amount: totalAmount,
+            itemNames: JSON.stringify(itemNames),
+            cartItems: JSON.stringify(cartItems)
+        };
+
+        const orderDetailsQuery = 'INSERT INTO orderDetails SET ?';
+        db.query(orderDetailsQuery, orderDetails, (err, orderResult) => {
+            if (err) {
+                console.error('Error inserting order details:', err);
+                return res.status(500).json({ error: 'Failed to place order details' });
+            }
+            const orderDetailsId = orderResult.insertId;
+
+            const order = {
+                first_name: userDetails.firstName,
+                last_name: userDetails.lastName,
+                email: userDetails.email,
+                street: userDetails.street,
+                city: userDetails.city,
+                district: userDetails.district,
+                state: userDetails.state,
+                zip_code: userDetails.zipCode,
+                mobile_number: userDetails.mobileNumber,
+                total_amount: totalAmount,
+                userDetails: JSON.stringify(userDetails),
+                cartItems: JSON.stringify(cartItems),
+                itemNames: JSON.stringify(itemNames),
+                payment_data: JSON.stringify(paymentData),
+                user_order_id: userOrderId,
+                order_details_id: orderDetailsId,
+            };
+
+            const orderQuery = 'INSERT INTO orders SET ?';
+                db.query(orderQuery, order, (err, result) => {
+                    if (err) {
+                        console.error('Error placing order:', err);
+                        return res.status(500).json({ error: 'Failed to place order' });
+                    }
+                    const orderId = result.insertId;
+                    res.status(201).json({ orderId: orderId });
+                });
+        });
     });
 });
-
-
 
 app.get('/order', (req, res) => {
     const sql = "SELECT * FROM orders";
@@ -267,6 +301,7 @@ app.get('/order', (req, res) => {
         }
     });
 });
+
 app.get('/users', (req, res) => {
     const sql = "SELECT * FROM users";
     
@@ -287,8 +322,8 @@ const generateToken = () => {
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'vasanthsubburaj24@gmail.com', 
-        pass: 'jjdp hwkg lymd guow'   
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS
     }
 });
 app.post('/forgotpassword', (req, res,token) => {

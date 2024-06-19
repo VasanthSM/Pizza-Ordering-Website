@@ -32,7 +32,7 @@ const LogIn = () => {
                 navigate('/');
             }
         } catch (error) {
-            toast.error("Password and userMailid does not match, Try again later");
+            alert("Password and userMailid does not match, Try again later")
         }
     };
 

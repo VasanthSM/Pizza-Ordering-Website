@@ -42,7 +42,8 @@ const SignUp = () => {
                     alert("Try again With new Emailid and Password")
                 }
             } catch (error) {
-                
+                toast.error("Try again With new Emailid and Password")
+                alert("This Emailid id already taken, so try with new New Emailid")
                 console.error(error);
             }
         }

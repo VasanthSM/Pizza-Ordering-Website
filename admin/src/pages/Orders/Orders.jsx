@@ -35,22 +35,23 @@ const Orders = () => {
     if (pizza.name) {
       return (
         <>
-          <strong>Name: </strong>{pizza.customizations}, 
-          <t/> <strong>Base:</strong> {pizza.name.base}, 
-          <t/> <strong>Size:</strong> {pizza.name.size}, 
-          <t/> <strong>Toppings:</strong> {pizza.name.toppings}, 
+          <t/> <strong>Name:</strong> {pizza.customizations[0]},
+          <t/> <strong>Base:</strong> {pizza.name.base},
+          <t/> <strong>Size:</strong> {pizza.name.size},
+          <t/> <strong>Toppings:</strong> {pizza.name.toppings},
         </>
       );
-    } else {
+    } else if (pizza.customizations && pizza.customizations.length > 0) {
       const custom = pizza.customizations[0];
       return (
         <>
-          <t/> <strong>Base:</strong> {custom.base}, 
-          <t/> <strong>Size:</strong> {custom.size}, 
-          <t/> <strong>Toppings:</strong> {custom.toppings}, 
+          <t/> <strong>Name:</strong> {`Customized Pizza`}, 
+          <t/> <strong>Base:</strong> {custom.base},
+          <t/> <strong>Size:</strong> {custom.size},
+          <t/> <strong>Toppings:</strong> {custom.toppings},
         </>
       );
-    }
+    } 
   };
   const getOrderStatus = (order) => {
     const orderTime = new Date(order.order_time);
