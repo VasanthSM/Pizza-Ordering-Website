@@ -15,10 +15,7 @@ const validation = (values) => {
 
     if (values.password.trim() === "") {
         errors.password = "Password should not be empty";
-    } else if (password_pattern.test(values.password)) {
-        errors.password = "Password didn't match";
     }
-
     return errors;
 };
 
