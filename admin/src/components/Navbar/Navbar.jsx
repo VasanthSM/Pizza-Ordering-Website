@@ -1,13 +1,13 @@
 import React from 'react';
 import "./Navbar.css";
-import { CgProfile } from "react-icons/cg";
+import { FaUserLarge } from "react-icons/fa6";
 import { assets } from '../../assets/assets';
 
 const Navbar = () => {
   return (
     <div className='navbar'>
         <img className='logo' src={assets.logo} alt="" />
-        <CgProfile className='profile' />
+        <FaUserLarge className='profile' />
     </div>
   )
 }
