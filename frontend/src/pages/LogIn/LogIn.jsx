@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { StoreContext } from '../../context/StoreContext';
 import './LogIn.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const LogIn = () => {
     const navigate = useNavigate();
+    const {url } = useContext(StoreContext);
     const [values, setValues] = useState({
         email: '',
         password: ''
@@ -24,7 +26,7 @@ const LogIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/login', values);
+            const res = await axios.post(`${url}/login`, values);
             if (res.status === 200) {
                 localStorage.setItem("Email:", values.email);
                 document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`; 

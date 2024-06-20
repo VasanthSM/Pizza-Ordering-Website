@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const {url } = useContext(StoreContext);
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/forgotpassword', { email });
+            const response = await axios.post(`${url}/forgotpassword`, { email });
             setMessage(response.data.message);
         } catch (error) {
             console.error('Error:', error);

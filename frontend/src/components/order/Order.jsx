@@ -7,7 +7,7 @@ import { StoreContext } from '../../context/StoreContext';
 const Order = () => {
   const [orders, setOrders] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  const { reorder } = useContext(StoreContext);
+  const { reorder,url } = useContext(StoreContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Order = () => {
     if (userEmail) {
       const fetchOrders = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/order?email=${userEmail}`);
+          const response = await axios.get(`${url}/order?email=${userEmail}`);
           setOrders(response.data);
         } catch (error) {
           console.error('Error fetching orders:', error);
@@ -35,7 +35,7 @@ const Order = () => {
 
   const handleReorder = async (order) => {
     try {
-      const response = await axios.get(`http://localhost:5000/order/${order.id}`);
+      const response = await axios.get(`${url}/order/${order.id}`);
       const orderDetails = response.data;
       reorder(orderDetails.cartItems);
       navigate(`/order`, { state: { userDetails: orderDetails.userDetails, totalAmount: orderDetails.totalAmount } });
@@ -46,7 +46,7 @@ const Order = () => {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      await axios.delete(`http://localhost:5000/order/${orderId}`);
+      await axios.delete(`${url}/order/${orderId}`);
       setOrders(orders.filter(order => order.id !== orderId));
     } catch (error) {
       console.error('Error canceling order:', error);
@@ -103,7 +103,7 @@ const Order = () => {
             <p><strong>Order Id: {order.id}</strong></p>
             <p><strong>Email: {order.email}</strong></p>
             <p><strong>Order Time:</strong> {new Date(order.order_time).toLocaleString()}</p>
-            <p><strong>Total Amount:</strong> ${order.total_amount}</p>
+            <p><strong>Total Amount:</strong> ₹ {order.total_amount}</p>
 
             <p><strong>Ordered Items:</strong></p>
             <ul className='OrderedItems'>

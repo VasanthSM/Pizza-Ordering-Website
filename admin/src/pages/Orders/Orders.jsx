@@ -5,11 +5,12 @@ import "./Orders.css"
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [itemData, setItemData] = useState({});
+  const {url } = useContext(StoreContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/order');
+        const response = await axios.get(`${url}/order`);
         setOrders(response.data);
         console.log(response.data);
       } catch (error) {
@@ -19,7 +20,7 @@ const Orders = () => {
 
     const fetchItemData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/data');
+        const response = await axios.get(`${url}/data`);
         setItemData(response.data);
         console.log(response.data);
       } catch (error) {

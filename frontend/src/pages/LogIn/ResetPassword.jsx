@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { StoreContext } from '../../context/StoreContext';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const {url } = useContext(StoreContext);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const ResetPassword = () => {
         setMessage('Please enter a valid email address.');
         return;
       }
-      const response = await axios.post(`http://localhost:5000/resetpassword`, {
+      const response = await axios.post(`${url}/resetpassword`, {
         email: email,
         password: password,
       });

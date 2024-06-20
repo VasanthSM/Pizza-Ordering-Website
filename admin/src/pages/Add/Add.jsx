@@ -6,6 +6,7 @@ import { assets } from '../../assets/assets';
 
 const Add = () => {
   const [image, setImage] = useState(null); 
+  const {url } = useContext(StoreContext);
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -32,7 +33,7 @@ const Add = () => {
     formData.append("image", image);
 
     try {
-      const response = await axios.post("http://localhost:5000/data", formData, {
+      const response = await axios.post(`${url}/data`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
-  const { getTotalAmount, cartItems } = useContext(StoreContext);
+  const { getTotalAmount, cartItems, url } = useContext(StoreContext);
   console.log(cartItems)
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,7 +41,7 @@ const PlaceOrder = () => {
       });
     }
     
-    axios.get('http://localhost:5000/data')
+    axios.get(`${url}/data`)
       .then(response => {
         const items = response.data; 
         const names = items.map(item => item.name);
@@ -67,7 +67,7 @@ const PlaceOrder = () => {
       "Content-Type": "application/json"
     };
     try {
-      const response = await axios.post('http://localhost:5000/payment', body, { headers });
+      const response = await axios.post(`${url}/payment`, body, { headers });
       await handlePlaceOrder(response.data);
     } catch (err) {
       alert('Payment Error: ' + err.message);
@@ -88,7 +88,7 @@ const PlaceOrder = () => {
     };
     
     try {
-      const response = await axios.post('http://localhost:5000/order', orderDetails, {
+      const response = await axios.post(`${url}/order`, orderDetails, {
         headers: {
           'Content-Type': 'application/json'
         }

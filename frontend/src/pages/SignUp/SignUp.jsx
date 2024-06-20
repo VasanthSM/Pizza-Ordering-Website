@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './SignUp.css';
 import axios from 'axios';
 import validation from './SignupValidation';
+import { StoreContext } from '../../context/StoreContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { toast } from 'react-toastify';
@@ -9,6 +10,7 @@ import { toast } from 'react-toastify';
 const SignUp = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const {url } = useContext(StoreContext);
     const [showPassword, setShowPassword] = useState(false);
     const [values, setValues] = useState({
         name: '',
@@ -31,7 +33,7 @@ const SignUp = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             try {
-                const res = await axios.post('http://localhost:5000/signup', values);
+                const res = await axios.post(`${url}/signup`, values);
                 if (res.status === 200) {
                     localStorage.setItem("Email", values.email);
                     document.cookie = `token=${res.data.token}; path=/; max-age=${2 * 24 * 60 * 60}`;

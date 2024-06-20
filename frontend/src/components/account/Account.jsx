@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import { StoreContext } from '../../context/StoreContext';
 import './Account.css';
 
 const Account = () => {
@@ -7,11 +8,12 @@ const Account = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const userEmailid = localStorage.getItem('Email:');
+  const {url } = useContext(StoreContext);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/users');
+        const response = await axios.get(`${url}/users`);
         setUsers(response.data);
       } catch (err) {
         setError('Failed to fetch user details');

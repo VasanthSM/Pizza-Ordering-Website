@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 
 const List = () => {
   const [list, setList] = useState([]);
+  const {url } = useContext(StoreContext);
 
   const fetchList = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/list");
+      const response = await axios.get(`${url}/list`);
       if (response.status === 200) {
         setList(response.data);
       } else {
@@ -27,7 +28,7 @@ const List = () => {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post('http://localhost:5000/remove', { _id: foodId });
+      const response = await axios.post(`${url}/remove`, { _id: foodId });
       if (response.status === 200) {
         toast.success("Food Removed");
         fetchList();
@@ -53,7 +54,7 @@ const List = () => {
         </div>
         {list.map((item, index) => (
           <div key={index} className="list-table-format">
-            <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.name} />
+            <img src={`${url}/uploads/${item.image}`} alt={item.name} />
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>₹{item.price}</p>
