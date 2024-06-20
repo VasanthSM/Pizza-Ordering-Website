@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState} from 'react';
 import axios from 'axios';
 import "./Orders.css"
-import { StoreContext } from '../../../../frontend/src/context/StoreContext';
+
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [itemData, setItemData] = useState({});
-  const {url } = useContext(StoreContext);
 
+  const url ="https://pizzaman-backend.onrender.com"
   useEffect(() => {
     const fetchOrders = async () => {
       try {

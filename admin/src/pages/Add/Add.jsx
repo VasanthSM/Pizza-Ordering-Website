@@ -1,14 +1,12 @@
-import React, { useState,useContext } from 'react';
+import React, { useState } from 'react';
 import "./Add.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { assets } from '../../assets/assets';
-import { StoreContext } from '../../../../frontend/src/context/StoreContext';
-
 
 const Add = () => {
   const [image, setImage] = useState(null); 
-  const {url } = useContext(StoreContext);
+  const url = "https://pizzaman-backend.onrender.com"
   const [data, setData] = useState({
     name: "",
     description: "",

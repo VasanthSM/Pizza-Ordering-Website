@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./List.css";
 import axios from 'axios';
 import { TiDelete } from "react-icons/ti";
 import { toast } from 'react-toastify';
-import { StoreContext } from '../../../../frontend/src/context/StoreContext';
 
 const List = () => {
   const [list, setList] = useState([]);
-  const {url } = useContext(StoreContext);
+  const url = 'https://pizzaman-backend.onrender.com'
 
   const fetchList = async () => {
     try {
