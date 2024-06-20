@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import './Order.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { StoreContext } from '../../context/StoreContext';
 
 const Order = () => {
@@ -48,6 +49,8 @@ const Order = () => {
     try {
       await axios.delete(`${url}/order/${orderId}`);
       setOrders(orders.filter(order => order.id !== orderId));
+      toast.warning('Cancel-Order Successful')
+      navigate('/')
     } catch (error) {
       console.error('Error canceling order:', error);
     }

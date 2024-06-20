@@ -304,9 +304,7 @@ app.get('/order', (req, res) => {
 
 app.delete('/order/:id', (req, res) => {
     const orderId = req.params.id;
-    var query = 'DELETE FROM orders WHERE id = ?';
-    var query = 'DELETE FROM UserOrderDetails WHERE id = ?';
-    var query = 'DELETE FROM orderDetails WHERE id = ?';
+    const query = 'DELETE FROM orders WHERE id = ?';
   
     db.query(query, [orderId], (err, result) => {
       if (err) {
