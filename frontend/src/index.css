@@ -84,6 +84,7 @@ input::placeholder{
     border-radius: 10px;
     color: white;
     padding: 8px 10px;
+    margin-top:30px;
     width: 100px;
     gap: 10px;
     cursor: pointer;
