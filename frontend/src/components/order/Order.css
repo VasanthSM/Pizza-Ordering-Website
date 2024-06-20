@@ -21,7 +21,18 @@
     padding: 10px;
     border-radius: 4px;
     color: black;
-    background-color: beige;
+    background-color: rgb(241, 144, 34);
+    cursor: pointer;
+    font-size: 18px;
+    width: max-content;
+}
+.Cancel-order{
+    border: none;
+    padding: 10px;
+    margin-left: 30px;
+    border-radius: 4px;
+    color: black;
+    background-color: rgb(236, 236, 231);
     cursor: pointer;
     font-size: 18px;
     width: max-content;

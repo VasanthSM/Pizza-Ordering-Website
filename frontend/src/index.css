@@ -35,41 +35,51 @@ a{
     top: 15%;
     left: 50%;
     transform: translate(-50%, 50%);
-    background: linear-gradient(#08a0ff, #97929238);
     height: 30%;
     width: 25%;
+    color: white;
+    border: 2px solid black;
+    background-image: url('../public/image.png');
     border-radius: 10px;
     padding: 40px;
     text-align:center;
-    box-shadow:
-    0 0 30px #fff,         
-    -15px 0 40px rgb(238, 210, 149),  
-    15px 0 40px rgb(181, 185, 117); 
 }
 
 .forgotPassword h2{
     font-size: 30px;
     font-weight: 400;
+    color: white;
     margin-bottom: 20px;
 }
 .forgotPassword input{
     margin-top: 20px;
     padding: 10px 20px;
     background: transparent;
-    color: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
     font-size: 20px;
 }
 input::placeholder{
-    color: black;
+    color: white;
 }
+.Signup input::placeholder{
+    color: rgb(0, 0, 0);
+}
+.login input::placeholder{
+    color: rgb(0, 0, 0);
+}
+
+
 .forgotPassword button{
     padding: 10px;
     margin-left: 30px;
     background-color:white;
     font-size: 20px;
-    border: 2px solid black;
+    border: 2px solid rgb(248, 248, 248);
     background: transparent;
     border-radius: 10px;
+    color: white;
     padding: 8px 10px;
     width: 100px;
     gap: 10px;
@@ -83,10 +93,11 @@ input::placeholder{
     top: 6%;
     left: 50%;
     transform: translate(-50%, 50%);
-    background: linear-gradient(#08a0ff, #97929238);
     height: 40%;
     width: 40%;
-    border-radius: 10px;
+    border-radius: 20px;
+    background-image: url('../public/image.png');
+    border: 2px solid black;
     padding: 40px;
     text-align:center;
     
@@ -100,14 +111,17 @@ input::placeholder{
     font-size: 30px;
     font-weight: 400;
     margin-bottom: 40px;
+    color: white;
 }
 .resetPassword input{
     display: flex;
     margin-left: 200px;
     padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 10px;
     border-radius: 10px;
     background: transparent;
-    color: black;
+    color: rgb(255, 255, 255);
     width: 50%;
     font-size: 20px;
 }
@@ -117,19 +131,22 @@ input::placeholder{
     margin-left: 30px;
     background-color:white;
     font-size: 20px;
-    border: 2px solid black;
+    border: 2px solid rgb(255, 255, 255);
     background: transparent;
     border-radius: 10px;
     padding: 8px 10px;
+    margin-top: 20px;
     width: 170px;
     text-align: center;
     gap: 10px;
+    color: white;
     cursor: pointer;
     margin-left: 300px;
 }
 
 .resetPassword p{
     font-size: 20px;
+    color: white;
     margin-top: 30px;
 }
 .pageNotFound{

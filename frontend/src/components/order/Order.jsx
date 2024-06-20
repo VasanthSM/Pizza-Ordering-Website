@@ -37,10 +37,19 @@ const Order = () => {
     try {
       const response = await axios.get(`http://localhost:5000/order/${order.id}`);
       const orderDetails = response.data;
-      reorder(orderDetails.cartItems); 
+      reorder(orderDetails.cartItems);
       navigate(`/order`, { state: { userDetails: orderDetails.userDetails, totalAmount: orderDetails.totalAmount } });
     } catch (error) {
       console.error('Error fetching order details for reorder:', error);
+    }
+  };
+
+  const handleCancelOrder = async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:5000/order/${orderId}`);
+      setOrders(orders.filter(order => order.id !== orderId));
+    } catch (error) {
+      console.error('Error canceling order:', error);
     }
   };
 
@@ -50,23 +59,23 @@ const Order = () => {
     if (pizza.name) {
       return (
         <>
-          <t/> <strong>Name:</strong> {pizza.customizations[0]},
-          <t/> <strong>Base:</strong> {pizza.name.base},
-          <t/> <strong>Size:</strong> {pizza.name.size},
-          <t/> <strong>Toppings:</strong> {pizza.name.toppings},
+          <t /> <strong>Name:</strong> {pizza.customizations[0]},
+          <t /> <strong>Base:</strong> {pizza.name.base},
+          <t /> <strong>Size:</strong> {pizza.name.size},
+          <t /> <strong>Toppings:</strong> {pizza.name.toppings},
         </>
       );
     } else if (pizza.customizations && pizza.customizations.length > 0) {
       const custom = pizza.customizations[0];
       return (
         <>
-          <t/> <strong>Name:</strong> {`Customized Pizza`}, 
-          <t/> <strong>Base:</strong> {custom.base},
-          <t/> <strong>Size:</strong> {custom.size},
-          <t/> <strong>Toppings:</strong> {custom.toppings},
+          <t /> <strong>Name:</strong> {`Customized Pizza`},
+          <t /> <strong>Base:</strong> {custom.base},
+          <t /> <strong>Size:</strong> {custom.size},
+          <t /> <strong>Toppings:</strong> {custom.toppings},
         </>
       );
-    } 
+    }
   };
 
   const getOrderStatus = (order) => {
@@ -106,8 +115,8 @@ const Order = () => {
                     {Object.values(item).map((pizza, j) => (
                       <li key={j} className='idKey'>
                         {renderPizzaDetails(pizza)}
-                        <t/> <strong>Price:</strong> ${pizza.price},
-                        <t/> <strong>Quantity:</strong> {pizza.quantity}
+                        <t /> <strong>Price:</strong> ${pizza.price},
+                        <t /> <strong>Quantity:</strong> {pizza.quantity}
                       </li>
                     ))}
                   </ul>
@@ -120,6 +129,12 @@ const Order = () => {
                 onClick={() => handleReorder(order)}
               >
                 Re-Order
+              </button>
+              <button
+              className='Cancel-order'
+                onClick={() => handleCancelOrder(order.id)}
+              >
+                Cancel-Order
               </button>
               <div className='orderStatus'>
                 <p>{getOrderStatus(order)}</p>

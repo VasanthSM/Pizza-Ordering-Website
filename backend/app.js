@@ -302,6 +302,25 @@ app.get('/order', (req, res) => {
     });
 });
 
+app.delete('/order/:id', (req, res) => {
+    const orderId = req.params.id;
+    var query = 'DELETE FROM orders WHERE id = ?';
+    var query = 'DELETE FROM UserOrderDetails WHERE id = ?';
+    var query = 'DELETE FROM orderDetails WHERE id = ?';
+  
+    db.query(query, [orderId], (err, result) => {
+      if (err) {
+        console.error('Error deleting order:', err);
+        return res.status(500).send('Error deleting order');
+      }
+      if (result.affectedRows === 0) {
+        return res.status(404).send('Order not found');
+      }
+      res.status(200).send('Order canceled successfully');
+    });
+  });
+
+
 app.get('/users', (req, res) => {
     const sql = "SELECT * FROM users";
     
