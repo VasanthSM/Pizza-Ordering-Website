@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className='navbar'>
         <img className='logo' src={assets.logo} alt="" />
-        <FaUserLarge className='profile' />
+        <FaUserLarge className='profile' /> Admin
     </div>
   )
 }
