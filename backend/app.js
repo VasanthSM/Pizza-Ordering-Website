@@ -21,6 +21,14 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE,
 });
 
+var del = db._protocol._delegateError;
+db._protocol._delegateError = function(err, sequence){
+  if (err.fatal) {
+    console.trace('fatal error: ' + err.message);
+  }
+  return del.call(this, err, sequence);
+};
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 db.connect((err) => {
