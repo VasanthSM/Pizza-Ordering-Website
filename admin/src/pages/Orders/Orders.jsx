@@ -7,7 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [itemData, setItemData] = useState({});
 
-  const url ="https://pizzaman-backend.onrender.com"
+  const url ="http://localhost:5000"
   useEffect(() => {
     const fetchOrders = async () => {
       try {

@@ -6,7 +6,7 @@ import { assets } from '../../assets/assets';
 
 const Add = () => {
   const [image, setImage] = useState(null); 
-  const url = "https://pizzaman-backend.onrender.com"
+  const url = "http://localhost:5000"
   const [data, setData] = useState({
     name: "",
     description: "",
