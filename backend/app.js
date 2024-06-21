@@ -7,7 +7,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const app = express();
-const router = express.router();
+const router = express.Router();
 const dotenv = require('dotenv')
 const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
 
