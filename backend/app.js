@@ -21,6 +21,13 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE,
 });
 
+const corsOptions = {
+    origin: 'https://pizzaman-a6z3.onrender.com/',
+    credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
 var del = db._protocol._delegateError;
 db._protocol._delegateError = function(err, sequence){
   if (err.fatal) {
@@ -410,6 +417,10 @@ app.post('/resetpassword', (req, res) => {
       res.status(200).json({ message: "Password updated successfully" });
     });
   });
+
+
+
+  
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
