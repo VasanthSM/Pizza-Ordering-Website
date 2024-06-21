@@ -6,7 +6,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [food_list, setFoodList] = useState([]);
-  const url = "http://localhost:5000";
+  const url = "https://pizzaman-backend.onrender.com";
 
   const addToCart = (itemId, price, customization, name = null) => {
     setCartItems((prev) => {
