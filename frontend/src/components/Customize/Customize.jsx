@@ -102,7 +102,7 @@ const Customize = ({ onAddToCart }) => {
         </div>
       </div>
       <div className="total-price">
-        <h3>Total Price: ₹{getTotalPrice()}</h3>~
+        <h3>Total Price: ₹{getTotalPrice()}</h3>
         <button onClick={handleConfirm}>Confirm</button>
       </div>
     </div>

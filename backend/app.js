@@ -7,13 +7,27 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const app = express();
-const router = express.Router();
 const dotenv = require('dotenv')
 const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
 
-app.use(cors());
+
 app.use(express.json());
 dotenv.config();
+
+
+
+var allowlist = ['http://localhost:3001', 'http://localhost:3000', 'http://localhost:4000']
+var corsOptionsDelegate = function (req, callback, origin) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1 || !origin) {
+    corsOptions = { origin: true }
+  } else {
+    corsOptions = { origin: false }
+  }
+  callback(null, corsOptions) 
+}
+
+app.use(cors(corsOptionsDelegate));
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -21,14 +35,6 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
 });
-
-const corsOptions = {
-    origin: ['https://pizzaman-admin.onrender.com/', 'https://pizzaman-a6z3.onrender.com'],
-    credentials: true, 
-};
-
-app.use(cors(corsOptions));
-
 
 var del = db._protocol._delegateError;
 db._protocol._delegateError = function(err, sequence){
@@ -38,6 +44,8 @@ db._protocol._delegateError = function(err, sequence){
   return del.call(this, err, sequence);
 };
 
+
+app.use('/', express.static(path.join(__dirname, 'src')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 db.connect((err) => {
@@ -62,7 +70,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/signup', (req, res) => {
+app.post('/signup', (req, res) => {
     const { name, email, password } = req.body;
     const checkUserQuery = "SELECT * FROM users WHERE Email = ?";
     const insertUserQuery = "INSERT INTO users (Name, Email, Password) VALUES (?, ?, ?)";
@@ -88,7 +96,7 @@ router.post('/signup', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
 
@@ -110,7 +118,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.get('/login', (req, res) => {
+app.get('/login', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -122,7 +130,7 @@ router.get('/login', (req, res) => {
         }
     });
 });
-router.get('/order/:orderId', (req, res) => {
+app.get('/order/:orderId', (req, res) => {
     const orderId = req.params.orderId;
     const sql = 'SELECT * FROM orders WHERE id = ?';
   
@@ -145,7 +153,7 @@ router.get('/order/:orderId', (req, res) => {
     });
   });
 
-router.post('/data', upload.single('image'), (req, res) => {
+app.post('/data', upload.single('image'), (req, res) => {
     const { name, description, price, category } = req.body;
     const image = req.file;
 
@@ -160,7 +168,7 @@ router.post('/data', upload.single('image'), (req, res) => {
     });
 });
 
-router.get('/list', (req, res) => {
+app.get('/list', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -173,7 +181,7 @@ router.get('/list', (req, res) => {
     });
 });
 
-router.post('/remove', (req, res) => {
+app.post('/remove', (req, res) => {
     const { _id } = req.body;
     if (!_id) {
         return res.status(400).json({ message: "ID is required" });
@@ -191,7 +199,7 @@ router.post('/remove', (req, res) => {
     });
 });
 
-router.get('/data', (req, res) => {
+app.get('/data', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -204,7 +212,7 @@ router.get('/data', (req, res) => {
     });
 });
 
-router.post("/payment", async (req, res) => {
+app.post("/payment", async (req, res) => {
     try {
         const { product, token } = req.body;
         
@@ -229,7 +237,7 @@ router.post("/payment", async (req, res) => {
     }
 });
   
-router.post('/order', (req, res) => {
+app.post('/order', (req, res) => {
     let { userDetails, paymentData, totalAmount, cartItems, itemNames } = req.body;
 
     if (!Array.isArray(cartItems)) {
@@ -306,7 +314,7 @@ router.post('/order', (req, res) => {
     });
 });
 
-router.get('/order', (req, res) => {
+app.get('/order', (req, res) => {
     const sql = "SELECT * FROM orders";
     
     db.query(sql, (err, results) => {
@@ -319,7 +327,7 @@ router.get('/order', (req, res) => {
     });
 });
 
-router.delete('/order/:id', (req, res) => {
+app.delete('/order/:id', (req, res) => {
     const orderId = req.params.id;
     const query = 'DELETE FROM orders WHERE id = ?';
   
@@ -336,7 +344,7 @@ router.delete('/order/:id', (req, res) => {
   });
 
 
-router.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
     const sql = "SELECT * FROM users";
     
     db.query(sql, (err, results) => {
@@ -360,7 +368,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
-router.post('/forgotpassword', (req, res,token) => {
+app.post('/forgotpassword', (req, res,token) => {
     const { email } = req.body;
     const resetToken = generateToken(); 
 
@@ -400,7 +408,7 @@ router.post('/forgotpassword', (req, res,token) => {
 });
 
 
-router.post('/resetpassword', (req, res) => {
+app.post('/resetpassword', (req, res) => {
     const { email, password } = req.body;
 
     const updatePasswordQuery = "UPDATE users SET Password = ? WHERE Email = ?";
@@ -419,10 +427,6 @@ router.post('/resetpassword', (req, res) => {
       res.status(200).json({ message: "Password updated successfully" });
     });
   });
-
-
-
-  
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
