@@ -22,15 +22,12 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE,
 });
 
-<<<<<<< HEAD
-=======
 const corsOptions = {
     origin: ['https://pizzaman-admin.onrender.com/', 'https://pizzaman-a6z3.onrender.com'],
     credentials: true, 
 };
 
 app.use(cors(corsOptions));
->>>>>>> 150755a396788055b59e1d9f482aa4e729763882
 
 
 var del = db._protocol._delegateError;

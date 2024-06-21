@@ -6,11 +6,6 @@ import { toast } from 'react-toastify';
 
 const List = () => {
   const [list, setList] = useState([]);
-<<<<<<< HEAD
-  const url = 'http://localhost:5000';
-=======
-  const url = "https://pizzaman-backend.onrender.com"
->>>>>>> 150755a396788055b59e1d9f482aa4e729763882
 
   const fetchList = async () => {
     try {
