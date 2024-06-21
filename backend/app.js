@@ -7,6 +7,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const app = express();
+const router = express.router();
 const dotenv = require('dotenv')
 const stripe = require("stripe")("sk_test_51PP2O1P4F4f9DURgoWb3jqvHho8lrrouLpqVmrHitnx17YjsYAUEKUvekuAdyUzn8CAHpq4ikZIKznfePHAAZoXZ00jbOREKRa")
 
@@ -61,7 +62,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/signup', (req, res) => {
+router.post('/signup', (req, res) => {
     const { name, email, password } = req.body;
     const checkUserQuery = "SELECT * FROM users WHERE Email = ?";
     const insertUserQuery = "INSERT INTO users (Name, Email, Password) VALUES (?, ?, ?)";
@@ -87,7 +88,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
 
@@ -109,7 +110,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.get('/login', (req, res) => {
+router.get('/login', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -121,7 +122,7 @@ app.get('/login', (req, res) => {
         }
     });
 });
-app.get('/order/:orderId', (req, res) => {
+router.get('/order/:orderId', (req, res) => {
     const orderId = req.params.orderId;
     const sql = 'SELECT * FROM orders WHERE id = ?';
   
@@ -144,7 +145,7 @@ app.get('/order/:orderId', (req, res) => {
     });
   });
 
-app.post('/data', upload.single('image'), (req, res) => {
+router.post('/data', upload.single('image'), (req, res) => {
     const { name, description, price, category } = req.body;
     const image = req.file;
 
@@ -159,7 +160,7 @@ app.post('/data', upload.single('image'), (req, res) => {
     });
 });
 
-app.get('/list', (req, res) => {
+router.get('/list', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -172,7 +173,7 @@ app.get('/list', (req, res) => {
     });
 });
 
-app.post('/remove', (req, res) => {
+router.post('/remove', (req, res) => {
     const { _id } = req.body;
     if (!_id) {
         return res.status(400).json({ message: "ID is required" });
@@ -190,7 +191,7 @@ app.post('/remove', (req, res) => {
     });
 });
 
-app.get('/data', (req, res) => {
+router.get('/data', (req, res) => {
     const sql = "SELECT * FROM data";
     
     db.query(sql, (err, results) => {
@@ -203,7 +204,7 @@ app.get('/data', (req, res) => {
     });
 });
 
-app.post("/payment", async (req, res) => {
+router.post("/payment", async (req, res) => {
     try {
         const { product, token } = req.body;
         
@@ -228,7 +229,7 @@ app.post("/payment", async (req, res) => {
     }
 });
   
-app.post('/order', (req, res) => {
+router.post('/order', (req, res) => {
     let { userDetails, paymentData, totalAmount, cartItems, itemNames } = req.body;
 
     if (!Array.isArray(cartItems)) {
@@ -305,7 +306,7 @@ app.post('/order', (req, res) => {
     });
 });
 
-app.get('/order', (req, res) => {
+router.get('/order', (req, res) => {
     const sql = "SELECT * FROM orders";
     
     db.query(sql, (err, results) => {
@@ -318,7 +319,7 @@ app.get('/order', (req, res) => {
     });
 });
 
-app.delete('/order/:id', (req, res) => {
+router.delete('/order/:id', (req, res) => {
     const orderId = req.params.id;
     const query = 'DELETE FROM orders WHERE id = ?';
   
@@ -335,7 +336,7 @@ app.delete('/order/:id', (req, res) => {
   });
 
 
-app.get('/users', (req, res) => {
+router.get('/users', (req, res) => {
     const sql = "SELECT * FROM users";
     
     db.query(sql, (err, results) => {
@@ -359,7 +360,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
-app.post('/forgotpassword', (req, res,token) => {
+router.post('/forgotpassword', (req, res,token) => {
     const { email } = req.body;
     const resetToken = generateToken(); 
 
@@ -399,7 +400,7 @@ app.post('/forgotpassword', (req, res,token) => {
 });
 
 
-app.post('/resetpassword', (req, res) => {
+router.post('/resetpassword', (req, res) => {
     const { email, password } = req.body;
 
     const updatePasswordQuery = "UPDATE users SET Password = ? WHERE Email = ?";
@@ -424,6 +425,6 @@ app.post('/resetpassword', (req, res) => {
   
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+router.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
