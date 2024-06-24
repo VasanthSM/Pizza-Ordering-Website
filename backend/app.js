@@ -15,11 +15,11 @@ app.use(express.json());
 dotenv.config();
 
 
-
-var allowlist = ['http://localhost:3001', 'http://localhost:3000', 'http://localhost:4000']
+//cors 
+var whitelist = ['http://localhost:3001', 'http://localhost:3000', 'http://localhost:4000']
 var corsOptionsDelegate = function (req, callback, origin) {
   var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1 || !origin) {
+  if (whitelist.indexOf(req.header('Origin')) !== -1 || !origin) {
     corsOptions = { origin: true }
   } else {
     corsOptions = { origin: false }
@@ -29,11 +29,20 @@ var corsOptionsDelegate = function (req, callback, origin) {
 
 app.use(cors(corsOptionsDelegate));
 
+//db connection
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
+});
+
+db.connect((err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("MySql Connected");
+    }
 });
 
 var del = db._protocol._delegateError;
@@ -45,19 +54,14 @@ db._protocol._delegateError = function(err, sequence){
 };
 
 
-app.use('/', express.static(path.join(__dirname, 'src')));
+app.use('/', express.static(path.join(__dirname,'..', 'frontend', 'src')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-db.connect((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("MySql Connected");
-    }
-});
+
 
 const jwtSecret = process.env.JWT_SECRET;
 
+//multer image storage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -70,6 +74,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+//signup post method
 app.post('/signup', (req, res) => {
     const { name, email, password } = req.body;
     const checkUserQuery = "SELECT * FROM users WHERE Email = ?";
@@ -96,22 +102,20 @@ app.post('/signup', (req, res) => {
     });
 });
 
+//login post method
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
 
     db.query(sql, [email, password], (err, result) => {
         if (err) {
-            console.error(err);
             res.status(500).json({ message: "Internal Server Error" });
         } else {
             if (result.length > 0) {
-                console.log("Login successfully");
                 const token = jwt.sign({ email: email }, jwtSecret, { expiresIn: '2d' });
                 res.cookie('token', token, { httpOnly: true, maxAge: 2 * 24 * 60 * 60 * 1000 });
                 res.status(200).json({ message: "Login successful", token: token });
             } else {
-                console.log("Invalid email or password");
                 res.status(401).json({ message: "Invalid email or password" });
             }
         }
@@ -119,7 +123,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    const sql = "SELECT * FROM data";
+    const sql = "SELECT * FROM users";
     
     db.query(sql, (err, results) => {
         if (err) {
@@ -130,6 +134,8 @@ app.get('/login', (req, res) => {
         }
     });
 });
+
+
 app.get('/order/:orderId', (req, res) => {
     const orderId = req.params.orderId;
     const sql = 'SELECT * FROM orders WHERE id = ?';
@@ -407,26 +413,30 @@ app.post('/forgotpassword', (req, res,token) => {
     });
 });
 
-
 app.post('/resetpassword', (req, res) => {
     const { email, password } = req.body;
 
     const updatePasswordQuery = "UPDATE users SET Password = ? WHERE Email = ?";
-    
-    db.query(updatePasswordQuery, [password, email], (err, result) => {
-      if (err) {
+
+db.query(updatePasswordQuery, [password, email], (err, result) => {
+    if (err) {
         console.error("Error updating password:", err);
         return res.status(500).json({ message: "Internal Server Error" });
-      }
-  
-      if (result.affectedRows === 0) {
+    }
+
+    if (result.affectedRows === 0) {
         return res.status(404).json({ message: "Email not found" });
-      }
-  
-      console.log("Password updated successfully");
-      res.status(200).json({ message: "Password updated successfully" });
-    });
-  });
+    }
+
+    console.log("Password updated successfully");
+    res.status(200).json({ message: "Password updated successfully" });
+});
+});
+
+
+app.get('/', (req, res) => {
+res.send('Hello, World!');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

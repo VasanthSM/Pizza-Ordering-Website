@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import './FoodItem.css';
 import { assets } from '../../assets/assets';
+import Rating from '@mui/material/Rating';
 import { StoreContext } from '../../context/StoreContext';
 import Customize from '../Customize/Customize';
 
 const FoodItem = ({ id, name, price, description, image }) => {
+  const [value, setValue] = React.useState(2);
   const { cartItems, addToCart, removeCart, url } = useContext(StoreContext);
   const [showCustomize, setShowCustomize] = useState(false);
   const [customization, setCustomization] = useState(null);
@@ -48,7 +50,14 @@ const FoodItem = ({ id, name, price, description, image }) => {
       <div className="fooditem-info">
         <div className="fooditem-rating">
           <p>{name}</p>
-          <img className='rating' src={assets.rating_starts} alt="Rating Stars" />
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
+
         </div>
         <p className="fooditem-desc">{description}</p>
         <p className="fooditem-price">₹ {price}</p>

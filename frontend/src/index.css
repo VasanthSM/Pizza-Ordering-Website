@@ -73,6 +73,11 @@ input::placeholder{
     color: rgb(0, 0, 0);
 }
 
+.Navbar input::placeholder{
+    color: rgb(0, 0, 0);
+}
+
+
 
 .forgotPassword button{
     padding: 10px;

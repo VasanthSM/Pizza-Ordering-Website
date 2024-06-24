@@ -10,7 +10,6 @@ const validation = (values) =>{
     }else{
         error.email = ""
     }
-
     if (values.password === ""){
         error.password = "Password Should not match"
     }else if (!password_pattern.test(values.password)){

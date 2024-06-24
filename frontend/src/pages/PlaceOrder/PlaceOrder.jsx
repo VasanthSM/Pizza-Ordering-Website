@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
   const { getTotalAmount, cartItems, url } = useContext(StoreContext);
-  console.log(cartItems)
   const navigate = useNavigate();
   const location = useLocation();
   const { userDetails: initialUserDetails, totalAmount: initialTotalAmount } = location.state || {};

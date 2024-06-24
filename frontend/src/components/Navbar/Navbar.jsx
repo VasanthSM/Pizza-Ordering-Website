@@ -15,7 +15,6 @@ const Navbar = ({ onSearch }) => {
     const cartRef = useRef(null);
     const navigate = useNavigate('');
     const token = document.cookie;
-    console.log(token)
 
     const toggleCartVisibility = () => {
         setCartVisible(!isCartVisible);
@@ -73,7 +72,7 @@ const Navbar = ({ onSearch }) => {
                                         type='text'
                                         value={searchQuery}
                                         onChange={handleSearchChange}
-                                        placeholder='Search...'
+                                        placeholder='Search your pizza here...'
                                         className='Navbar-search-input'
                                     />
                                 )}
