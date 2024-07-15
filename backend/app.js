@@ -29,7 +29,7 @@ var corsOptionsDelegate = function (req, callback, origin) {
 
 app.use(cors(corsOptionsDelegate));
 
-//db connection
+//db connections
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
